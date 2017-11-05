@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 		<property name="jndiName" value="java:comp/env/jdbc/postgresDataSource" /> -->
+<!-- 	</bean> -->
+
+<!-- <Resource name="jdbc/postgresDataSource" -->
+<!-- 				auth="Container" -->
+<!-- 				type="javax.sql.DataSource" -->
+<!-- 				maxTotal="100" -->
+<!-- 				maxIdle="30" -->
+<!-- 				maxWaitMillis="10000" -->
+<!-- 				username="administrador" -->
+<!-- 				password="culleredo1" -->
+<!-- 				driverClassName="org.postgresql.Driver" -->
+<!-- 				url="jdbc:postgresql://museo.cqpvo7bnr8sy.eu-west-1.rds.amazonaws.com:5432/museo"/> -->
+				
+				
+				
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://museo.cqpvo7bnr8sy.eu-west-1.rds.amazonaws.com:5432/museo" />
+        <property name="username" value="administrador" />
+        <property name="password" value="culleredo1" />
+</bean>
+
+				
+</beans>

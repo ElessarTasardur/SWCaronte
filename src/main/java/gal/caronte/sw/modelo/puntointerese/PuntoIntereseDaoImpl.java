@@ -1,0 +1,107 @@
+package gal.caronte.sw.modelo.puntointerese;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+
+import gal.caronte.sw.modelo.percorrido.Percorrido;
+
+public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
+
+	@Autowired
+	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+	@Value("${puntoIntereseDao.selectByIdQuery}")
+	private String selectPorIdQuery;
+
+	@Value("${puntoIntereseDao.selectByIdEdificioQuery}")
+	private String selectPorIdEdificioQuery;
+
+	@Value("${puntoIntereseDao.selectPorIdPercorridoQuery}")
+	private String selectPorIdPercorridoQuery;
+
+	@Value("${puntoIntereseDao.insertQuery}")
+	private String insertQuery;
+
+	@Value("${puntoIntereseDao.updateQuery}")
+	private String updateQuery;
+
+	@Value("${puntoIntereseDao.deleteQuery}")
+	private String deleteQuery;
+
+	private final static RowMapper<PuntoInterese> ROW_MAPPER = new RowMapper<PuntoInterese>() {
+
+		@Override
+		public PuntoInterese mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Short idPuntoInterese = rs.getShort(PuntoInterese.ID_PUNTO_INTERESE);
+			String nome = rs.getString(PuntoInterese.NOME);
+			String descricion = rs.getString(PuntoInterese.DESCRICION);
+			Short idEdificio = rs.getShort(PuntoInterese.ID_EDIFICIO);
+			Short idPlanta = rs.getShort(PuntoInterese.ID_PLANTA);
+			Float latitude = rs.getFloat(PuntoInterese.LATITUDE);
+			Float lonxitude = rs.getFloat(PuntoInterese.LONXITUDE);
+			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, latitude, lonxitude);
+		}
+
+	};
+
+	@Override
+	public PuntoInterese getPorId(Integer idPuntoInterese) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PuntoInterese.ID_PUNTO_INTERESE, idPuntoInterese);
+		return this.jdbcTemplate.queryForObject(this.selectPorIdQuery, parameters, ROW_MAPPER);
+	}
+
+	@Override
+	public List<PuntoInterese> getPorIdEdificio(Integer idEdificio) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PuntoInterese.ID_EDIFICIO, idEdificio);
+		return this.jdbcTemplate.query(this.selectPorIdEdificioQuery, parameters, ROW_MAPPER);
+	}
+
+	@Override
+	public List<PuntoInterese> getPorIdPercorrido(Integer idPercorrido) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.ID_PERCORRIDO, idPercorrido);
+		return this.jdbcTemplate.query(this.selectPorIdPercorridoQuery, parameters, ROW_MAPPER);
+	}
+
+	@Override
+	public Short engadir(PuntoInterese puntoInterese) {
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue(PuntoInterese.NOME, puntoInterese.getNome())
+				.addValue(PuntoInterese.DESCRICION, puntoInterese.getDescricion())
+				.addValue(PuntoInterese.ID_EDIFICIO, puntoInterese.getIdEdificio())
+				.addValue(PuntoInterese.ID_PLANTA, puntoInterese.getIdPlanta())
+				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
+				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
+		GeneratedKeyHolder holder = new GeneratedKeyHolder();
+		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
+		return holder.getKey().shortValue();
+	}
+
+	@Override
+	public void modificar(PuntoInterese puntoInterese) {
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue(PuntoInterese.ID_PUNTO_INTERESE, puntoInterese.getIdPuntoInterese())
+				.addValue(PuntoInterese.NOME, puntoInterese.getNome())
+				.addValue(PuntoInterese.DESCRICION, puntoInterese.getDescricion())
+				.addValue(PuntoInterese.ID_EDIFICIO, puntoInterese.getIdEdificio())
+				.addValue(PuntoInterese.ID_PLANTA, puntoInterese.getIdPlanta())
+				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
+				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
+		this.jdbcTemplate.update(this.updateQuery, parameters);
+	}
+
+	@Override
+	public void eliminar(Short idPuntoInterese) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PuntoInterese.ID_PUNTO_INTERESE, idPuntoInterese);
+		this.jdbcTemplate.update(this.deleteQuery, parameters);
+		
+	}
+}

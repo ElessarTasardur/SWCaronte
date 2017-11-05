@@ -1,0 +1,18 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="jetty" class="org.eclipse.jetty.webapp.WebAppContext">
+
+	<New id="postgresDataSource" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/postgresDataSource</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">org.postgresql.Driver</Set>
+				<Set name="url">jdbc:postgresql://museo.cqpvo7bnr8sy.eu-west-1.rds.amazonaws.com:5432/museo</Set>
+				<Set name="username">administrador</Set>
+				<Set name="password">culleredo1</Set>
+			</New>
+		</Arg>
+	</New>
+
+</Configure>

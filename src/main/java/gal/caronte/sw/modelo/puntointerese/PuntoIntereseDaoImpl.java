@@ -11,30 +11,32 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 
+@Repository
 public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-	@Value("${puntoIntereseDao.selectByIdQuery}")
+//	@Value("${puntoIntereseDao.selectPorIdQuery}")
 	private String selectPorIdQuery;
 
-	@Value("${puntoIntereseDao.selectByIdEdificioQuery}")
+//	@Value("${puntoIntereseDao.selectPorIdEdificioQuery}")
 	private String selectPorIdEdificioQuery;
 
-	@Value("${puntoIntereseDao.selectPorIdPercorridoQuery}")
+//	@Value("${puntoIntereseDao.selectPorIdPercorridoQuery}")
 	private String selectPorIdPercorridoQuery;
 
-	@Value("${puntoIntereseDao.insertQuery}")
+//	@Value("${puntoIntereseDao.insertQuery}")
 	private String insertQuery;
 
-	@Value("${puntoIntereseDao.updateQuery}")
+//	@Value("${puntoIntereseDao.updateQuery}")
 	private String updateQuery;
 
-	@Value("${puntoIntereseDao.deleteQuery}")
+//	@Value("${puntoIntereseDao.deleteQuery}")
 	private String deleteQuery;
 
 	private final static RowMapper<PuntoInterese> ROW_MAPPER = new RowMapper<PuntoInterese>() {

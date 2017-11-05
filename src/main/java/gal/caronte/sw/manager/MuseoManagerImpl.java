@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 
 import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.edificio.EdificioDao;
+import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
+import gal.caronte.sw.modelo.puntointerese.PuntoIntereseDao;
 
 @Service
 public class MuseoManagerImpl implements MuseoManager {
 
 	@Autowired
 	private EdificioDao edificioDao;
+	
+	@Autowired
+	private PuntoIntereseDao puntoIntereseDao;
 	
 	@Override
 	public List<Edificio> getTodosEdificios() {
@@ -22,6 +27,11 @@ public class MuseoManagerImpl implements MuseoManager {
 	@Override
 	public Edificio getEdificio(Integer idEdificio) {
 		return this.edificioDao.getEdificio(idEdificio);
+	}
+
+	@Override
+	public List<PuntoInterese> getPorIdEdificio(Integer idEdificio) {
+		return this.puntoIntereseDao.getPorIdEdificio(idEdificio);
 	}
 
 }

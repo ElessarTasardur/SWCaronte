@@ -9,19 +9,21 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PercorridoPuntoIntereseDaoImpl implements PercorridoPuntoIntereseDao {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-	@Value("${percorridoPuntoIntereseDao.insertQuery}")
+//	@Value("${percorridoPuntoIntereseDao.insertQuery}")
 	private String insertQuery;
 
-	@Value("${percorridoPuntoIntereseDao.updateQuery}")
+//	@Value("${percorridoPuntoIntereseDao.updateQuery}")
 	private String updateQuery;
 
-	@Value("${percorridoPuntoIntereseDao.deleteQuery}")
+//	@Value("${percorridoPuntoIntereseDao.deleteQuery}")
 	private String deleteQuery;
 
 	private final static RowMapper<PercorridoPuntoInterese> ROW_MAPPER = new RowMapper<PercorridoPuntoInterese>() {

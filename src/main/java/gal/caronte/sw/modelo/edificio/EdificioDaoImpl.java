@@ -18,10 +18,10 @@ public class EdificioDaoImpl implements EdificioDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-	@Value("${edificioDao.selectTodosQuery}")
+//	@Value("${edificioDao.selectTodosQuery}")
 	private String selectTodosQuery;
 
-	@Value("${edificioDao.selectPorIdQuery}")
+//	@Value("${edificioDao.selectPorIdQuery}")
 	private String selectPorIdQuery;
 	
 	private final static RowMapper<Edificio> ROW_MAPPER = new RowMapper<Edificio>() {

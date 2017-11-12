@@ -19,19 +19,19 @@ public class PercorridoDaoImpl implements PercorridoDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-//	@Value("${percorridoDao.selectPorIdQuery}")
+	@Value("${percorridoDao.selectPorIdQuery}")
 	private String selectPorIdQuery;
 
-//	@Value("${percorridoDao.selectPorIdEdificioQuery}")
+	@Value("${percorridoDao.selectPorIdEdificioQuery}")
 	private String selectPorIdEdificioQuery;
 
-//	@Value("${percorridoDao.insertQuery}")
+	@Value("${percorridoDao.insertQuery}")
 	private String insertQuery;
 
-//	@Value("${percorridoDao.updateQuery}")
+	@Value("${percorridoDao.updateQuery}")
 	private String updateQuery;
 
-//	@Value("${percorridoDao.deleteQuery}")
+	@Value("${percorridoDao.deleteQuery}")
 	private String deleteQuery;
 
 	private final static RowMapper<Percorrido> ROW_MAPPER = new RowMapper<Percorrido>() {

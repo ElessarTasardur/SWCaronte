@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 
 @Repository
@@ -21,22 +22,25 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-//	@Value("${puntoIntereseDao.selectPorIdQuery}")
+	@Value("${puntoIntereseDao.selectPorIdQuery}")
 	private String selectPorIdQuery;
 
-//	@Value("${puntoIntereseDao.selectPorIdEdificioQuery}")
+	@Value("${puntoIntereseDao.selectPorIdEdificioQuery}")
 	private String selectPorIdEdificioQuery;
+	
+	@Value("${puntoIntereseDao.selectPorIdEdificioExternoQuery}")
+	private String selectPorIdEdificioExternoQuery;
 
-//	@Value("${puntoIntereseDao.selectPorIdPercorridoQuery}")
+	@Value("${puntoIntereseDao.selectPorIdPercorridoQuery}")
 	private String selectPorIdPercorridoQuery;
 
-//	@Value("${puntoIntereseDao.insertQuery}")
+	@Value("${puntoIntereseDao.insertQuery}")
 	private String insertQuery;
 
-//	@Value("${puntoIntereseDao.updateQuery}")
+	@Value("${puntoIntereseDao.updateQuery}")
 	private String updateQuery;
 
-//	@Value("${puntoIntereseDao.deleteQuery}")
+	@Value("${puntoIntereseDao.deleteQuery}")
 	private String deleteQuery;
 
 	private final static RowMapper<PuntoInterese> ROW_MAPPER = new RowMapper<PuntoInterese>() {
@@ -56,19 +60,25 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 	};
 
 	@Override
-	public PuntoInterese getPorId(Integer idPuntoInterese) {
+	public PuntoInterese getPorId(Short idPuntoInterese) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PuntoInterese.ID_PUNTO_INTERESE, idPuntoInterese);
 		return this.jdbcTemplate.queryForObject(this.selectPorIdQuery, parameters, ROW_MAPPER);
 	}
 
 	@Override
-	public List<PuntoInterese> getPorIdEdificio(Integer idEdificio) {
+	public List<PuntoInterese> getPorIdEdificio(Short idEdificio) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PuntoInterese.ID_EDIFICIO, idEdificio);
 		return this.jdbcTemplate.query(this.selectPorIdEdificioQuery, parameters, ROW_MAPPER);
 	}
+	
+	@Override
+	public List<PuntoInterese> getPorIdEdificioExterno(Short idEdificioExterno) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Edificio.ID_EDIFICIO_EXTERNO, idEdificioExterno);
+		return this.jdbcTemplate.query(this.selectPorIdEdificioExternoQuery, parameters, ROW_MAPPER);
+	}
 
 	@Override
-	public List<PuntoInterese> getPorIdPercorrido(Integer idPercorrido) {
+	public List<PuntoInterese> getPorIdPercorrido(Short idPercorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.ID_PERCORRIDO, idPercorrido);
 		return this.jdbcTemplate.query(this.selectPorIdPercorridoQuery, parameters, ROW_MAPPER);
 	}

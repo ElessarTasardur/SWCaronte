@@ -6,6 +6,6 @@ public interface EdificioDao {
 
 	List<Edificio> getTodos();
 	
-	Edificio getEdificio(Integer idEdificio);
+	Edificio getEdificio(Short idEdificio);
 	
 }

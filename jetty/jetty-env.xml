@@ -2,7 +2,6 @@
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
 <Configure id="jetty" class="org.eclipse.jetty.webapp.WebAppContext">
-
 	<New id="postgresDataSource" class="org.eclipse.jetty.plus.jndi.Resource">
 		<Arg>jdbc/postgresDataSource</Arg>
 		<Arg>
@@ -14,5 +13,4 @@
 			</New>
 		</Arg>
 	</New>
-
 </Configure>

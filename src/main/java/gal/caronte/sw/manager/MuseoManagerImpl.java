@@ -25,13 +25,13 @@ public class MuseoManagerImpl implements MuseoManager {
 	}
 
 	@Override
-	public Edificio getEdificio(Integer idEdificio) {
+	public Edificio getEdificio(Short idEdificio) {
 		return this.edificioDao.getEdificio(idEdificio);
 	}
 
 	@Override
-	public List<PuntoInterese> getPorIdEdificio(Integer idEdificio) {
-		return this.puntoIntereseDao.getPorIdEdificio(idEdificio);
+	public List<PuntoInterese> getPorIdEdificioExterno(Short idEdificioExterno) {
+		return this.puntoIntereseDao.getPorIdEdificioExterno(idEdificioExterno);
 	}
 
 }

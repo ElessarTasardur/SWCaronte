@@ -19,6 +19,14 @@
 
 	<build>
 		<finalName>sw</finalName>
+		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath></targetPath>
+			</resource>
+		</resources>
+				
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
@@ -33,16 +41,39 @@
 						<artifactId>commons-dbcp</artifactId>
 						<version>1.4</version>
 					</dependency>
-					<dependency>
-					    <groupId>postgresql</groupId>
-					    <artifactId>postgresql</artifactId>
-					    <version>9.4.1208-jdbc42-atlassian-hosted</version>
-					    <scope>runtime</scope>
-					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>perfil/local</directory>
+						<targetPath></targetPath>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>amazon</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>perfil/amazon</directory>
+						<targetPath></targetPath>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
 
 	<dependencies>
 

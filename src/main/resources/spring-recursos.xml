@@ -3,18 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<!-- Tomcat -->
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/postgresDataSource" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://museo.cqpvo7bnr8sy.eu-west-1.rds.amazonaws.com:5432/museo" />
+		<property name="username" value="administrador" />
+		<property name="password" value="culleredo1" />
 	</bean>
 
-<!-- Jetty -->
-<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
-<!--         <property name="driverClassName" value="org.postgresql.Driver" /> -->
-<!--         <property name="url" value="jdbc:postgresql://museo.cqpvo7bnr8sy.eu-west-1.rds.amazonaws.com:5432/museo" /> -->
-<!--         <property name="username" value="administrador" /> -->
-<!--         <property name="password" value="culleredo1" /> -->
-<!-- </bean> -->
-
-				
 </beans>

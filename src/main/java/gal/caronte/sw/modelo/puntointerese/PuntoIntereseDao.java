@@ -4,11 +4,13 @@ import java.util.List;
 
 public interface PuntoIntereseDao {
 
-	PuntoInterese getPorId(Integer idPuntoInterese);
+	PuntoInterese getPorId(Short idPuntoInterese);
 	
-	List<PuntoInterese> getPorIdEdificio(Integer idEdificio);
+	List<PuntoInterese> getPorIdEdificio(Short idEdificio);
 	
-	List<PuntoInterese> getPorIdPercorrido(Integer idPercorrido);
+	List<PuntoInterese> getPorIdEdificioExterno(Short idEdificioExterno);
+	
+	List<PuntoInterese> getPorIdPercorrido(Short idPercorrido);
 	
 	Short engadir(PuntoInterese puntoInterese);
 

@@ -9,8 +9,8 @@ public interface MuseoManager {
 
 	List<Edificio> getTodosEdificios();
 
-	Edificio getEdificio(Integer idEdificio);
+	Edificio getEdificio(Short idEdificio);
 	
-	List<PuntoInterese> getPorIdEdificio(Integer idEdificio);
+	List<PuntoInterese> getPorIdEdificioExterno(Short idEdificioExterno);
 
 }

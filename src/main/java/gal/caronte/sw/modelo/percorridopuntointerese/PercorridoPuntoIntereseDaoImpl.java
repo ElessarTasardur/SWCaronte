@@ -17,13 +17,13 @@ public class PercorridoPuntoIntereseDaoImpl implements PercorridoPuntoIntereseDa
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-//	@Value("${percorridoPuntoIntereseDao.insertQuery}")
+	@Value("${percorridoPuntoIntereseDao.insertQuery}")
 	private String insertQuery;
 
-//	@Value("${percorridoPuntoIntereseDao.updateQuery}")
+	@Value("${percorridoPuntoIntereseDao.updateQuery}")
 	private String updateQuery;
 
-//	@Value("${percorridoPuntoIntereseDao.deleteQuery}")
+	@Value("${percorridoPuntoIntereseDao.deleteQuery}")
 	private String deleteQuery;
 
 	private final static RowMapper<PercorridoPuntoInterese> ROW_MAPPER = new RowMapper<PercorridoPuntoInterese>() {

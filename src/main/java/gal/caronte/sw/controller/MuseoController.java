@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,6 @@ import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 @RequestMapping(value = "/")
 @Configuration
 @EnableWebMvc
-//@ComponentScan("gal.caronte.sw.controller")
 public class MuseoController {
 
 	public static final Logger log = LoggerFactory.getLogger(MuseoController.class);
@@ -39,10 +37,10 @@ public class MuseoController {
 		return lista;
 	}
 	
-	@RequestMapping(value = "/pois/{idEdificio}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/pois/{idEdificioExterno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<PuntoInterese> getPois(@PathVariable int idEdificio) {
-		List<PuntoInterese> lista = this.museoManager.getPorIdEdificio(idEdificio);
+	public List<PuntoInterese> getPois(@PathVariable short idEdificioExterno) {
+		List<PuntoInterese> lista = this.museoManager.getPorIdEdificioExterno(idEdificioExterno);
 		
 		return lista;
 	}

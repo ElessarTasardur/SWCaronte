@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gal.caronte.sw.modelo.contasitum.ContaSitum;
+import gal.caronte.sw.modelo.contasitum.ContaSitumDao;
 import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.edificio.EdificioDao;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
@@ -13,6 +15,9 @@ import gal.caronte.sw.modelo.puntointerese.PuntoIntereseDao;
 @Service
 public class MuseoManagerImpl implements MuseoManager {
 
+	@Autowired
+	private ContaSitumDao contaSitumDao;
+	
 	@Autowired
 	private EdificioDao edificioDao;
 	
@@ -32,6 +37,11 @@ public class MuseoManagerImpl implements MuseoManager {
 	@Override
 	public List<PuntoInterese> getPorIdEdificioExterno(Short idEdificioExterno) {
 		return this.puntoIntereseDao.getPorIdEdificioExterno(idEdificioExterno);
+	}
+
+	@Override
+	public List<ContaSitum> getListaContaSitum() {
+		return this.contaSitumDao.getTodas();
 	}
 
 }

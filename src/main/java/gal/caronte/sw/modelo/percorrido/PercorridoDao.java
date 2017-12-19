@@ -6,7 +6,7 @@ public interface PercorridoDao {
 
 	Percorrido getPercorrido(Short idPercorrido);
 
-	List<Percorrido> getPercorridoPorIdEdificio(Short idEdificio);
+	List<Percorrido> getListaPercorridoPorIdEdificio(Short idEdificio);
 
 	Short engadir(Percorrido percorrido);
 

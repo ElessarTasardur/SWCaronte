@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import gal.caronte.sw.custom.PercorridoCustom;
 import gal.caronte.sw.custom.PercorridoPuntoIntereseCustom;
 import gal.caronte.sw.custom.PosicionCustom;
 import gal.caronte.sw.custom.PuntoIntereseCustom;
 import gal.caronte.sw.manager.MuseoManager;
 import gal.caronte.sw.modelo.contasitum.ContaSitum;
 import gal.caronte.sw.modelo.edificio.Edificio;
+import gal.caronte.sw.modelo.percorrido.Percorrido;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 
@@ -74,9 +76,30 @@ public class MuseoController {
 		return lista;
 	}
 	
+	@RequestMapping(value = "/percorrido/{idEdificio}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<PercorridoCustom> getPercorridoEdificio(@PathVariable short idEdificio) {
+		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificio(idEdificio);
+		
+		return convertirPercorridoPercorridoCustom(lista);
+	}
+	
+	private static List<PercorridoCustom> convertirPercorridoPercorridoCustom(List<Percorrido> lista) {
+		
+		List<PercorridoCustom> listaPC = new ArrayList<>();
+		
+		if (lista != null) {
+			for (Percorrido percorrido : lista) {
+				listaPC.add(new PercorridoCustom(percorrido.getIdPercorrido(), percorrido.getNome(), percorrido.getDescricion(), percorrido.getIdEdificio()));
+			}
+		}
+		
+		return listaPC;
+	}
+
 	@RequestMapping(value = "/ppi/{idPercorrido}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<PercorridoPuntoIntereseCustom> getPercorrido(@PathVariable short idPercorrido) {
+	public List<PercorridoPuntoIntereseCustom> getPuntosInteresePercorrido(@PathVariable short idPercorrido) {
 		List<PercorridoPuntoInterese> lista = this.museoManager.getListaPercorridoPuntoInterese(idPercorrido);
 		
 		return convertirPPIPPIC(lista);

@@ -54,11 +54,11 @@ public class PercorridoDaoImpl implements PercorridoDao {
 	}
 
 	@Override
-	public List<Percorrido> getPercorridoPorIdEdificio(Short idEdificio) {
+	public List<Percorrido> getListaPercorridoPorIdEdificio(Short idEdificio) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.ID_EDIFICIO, idEdificio);
 		return this.jdbcTemplate.query(this.selectPorIdEdificioQuery, parameters, ROW_MAPPER);
 	}
-
+	
 	@Override
 	public Short engadir(Percorrido percorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.NOME, percorrido.getNome())

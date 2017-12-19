@@ -9,6 +9,8 @@ import gal.caronte.sw.modelo.contasitum.ContaSitum;
 import gal.caronte.sw.modelo.contasitum.ContaSitumDao;
 import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.edificio.EdificioDao;
+import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
+import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoIntereseDao;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoIntereseDao;
 
@@ -23,6 +25,9 @@ public class MuseoManagerImpl implements MuseoManager {
 	
 	@Autowired
 	private PuntoIntereseDao puntoIntereseDao;
+	
+	@Autowired
+	private PercorridoPuntoIntereseDao percorridoPuntoIntereseDao;
 	
 	@Override
 	public List<Edificio> getTodosEdificios() {
@@ -42,6 +47,11 @@ public class MuseoManagerImpl implements MuseoManager {
 	@Override
 	public List<ContaSitum> getListaContaSitum() {
 		return this.contaSitumDao.getTodas();
+	}
+
+	@Override
+	public List<PercorridoPuntoInterese> getListaPercorridoPuntoInterese(Short idPercorrido) {
+		return this.percorridoPuntoIntereseDao.getListaPercorridoPuntoInteresePorIdPercorrido(idPercorrido);
 	}
 
 }

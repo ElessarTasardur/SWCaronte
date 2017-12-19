@@ -2,6 +2,7 @@ package gal.caronte.sw.modelo.percorridopuntointerese;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,9 @@ public class PercorridoPuntoIntereseDaoImpl implements PercorridoPuntoIntereseDa
 
 	@Value("${percorridoPuntoIntereseDao.deleteQuery}")
 	private String deleteQuery;
+	
+	@Value("${percorridoPuntoIntereseDao.selectPorIdPercorridoQuery}")
+	private String selectPorIdPercorridoQuery;
 
 	private final static RowMapper<PercorridoPuntoInterese> ROW_MAPPER = new RowMapper<PercorridoPuntoInterese>() {
 
@@ -59,6 +63,12 @@ public class PercorridoPuntoIntereseDaoImpl implements PercorridoPuntoIntereseDa
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PercorridoPuntoInterese.ID_PERCORRIDO, idPercorrido)
 				.addValue(PercorridoPuntoInterese.ID_PUNTO_INTERESE, idPuntoInterese);
 		this.jdbcTemplate.update(this.deleteQuery, parameters);
+	}
+
+	@Override
+	public List<PercorridoPuntoInterese> getListaPercorridoPuntoInteresePorIdPercorrido(Short idPercorrido) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PercorridoPuntoInterese.ID_PERCORRIDO, idPercorrido);
+		return this.jdbcTemplate.query(this.selectPorIdPercorridoQuery, parameters, ROW_MAPPER);
 	}
 
 }

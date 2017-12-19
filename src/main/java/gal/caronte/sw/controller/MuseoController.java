@@ -1,5 +1,6 @@
 package gal.caronte.sw.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,9 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import gal.caronte.sw.custom.PercorridoPuntoIntereseCustom;
+import gal.caronte.sw.custom.PosicionCustom;
+import gal.caronte.sw.custom.PuntoIntereseCustom;
 import gal.caronte.sw.manager.MuseoManager;
 import gal.caronte.sw.modelo.contasitum.ContaSitum;
 import gal.caronte.sw.modelo.edificio.Edificio;
+import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 
 @RestController
@@ -40,12 +45,27 @@ public class MuseoController {
 	
 	@RequestMapping(value = "/pois/{idEdificioExterno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<PuntoInterese> getPois(@PathVariable short idEdificioExterno) {
+	public List<PuntoIntereseCustom> getPois(@PathVariable short idEdificioExterno) {
 		List<PuntoInterese> lista = this.museoManager.getPorIdEdificioExterno(idEdificioExterno);
 		
-		return lista;
+		return convertirPuntoInteresePuntoIntereseCustom(lista);
+		
 	}
 	
+	private static List<PuntoIntereseCustom> convertirPuntoInteresePuntoIntereseCustom(List<PuntoInterese> lista) {
+		
+		List<PuntoIntereseCustom> listaPIC = new ArrayList<>();
+		
+		if (lista != null) {
+			for (PuntoInterese poi : lista) {
+				listaPIC.add(new PuntoIntereseCustom(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
+						new PosicionCustom(poi.getIdEdificio(), poi.getIdPlanta(), poi.getLatitude(), poi.getLonxitude())));
+			}
+		}
+		
+		return listaPIC;
+	}
+
 	@RequestMapping(value = "/contas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<ContaSitum> getContasSitum() {
@@ -54,10 +74,25 @@ public class MuseoController {
 		return lista;
 	}
 	
-//	@RequestMapping(value = "/nha", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public String nha() {
-//		log.info("nha");
-//		return "nha";
-//	}
+	@RequestMapping(value = "/ppi/{idPercorrido}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<PercorridoPuntoIntereseCustom> getPercorrido(@PathVariable short idPercorrido) {
+		List<PercorridoPuntoInterese> lista = this.museoManager.getListaPercorridoPuntoInterese(idPercorrido);
+		
+		return convertirPPIPPIC(lista);
+	}
+	
+	private static List<PercorridoPuntoIntereseCustom> convertirPPIPPIC(List<PercorridoPuntoInterese> lista) {
+		
+		List<PercorridoPuntoIntereseCustom> listaPPIC = new ArrayList<>();
+		
+		if (lista != null) {
+			for (PercorridoPuntoInterese ppi : lista) {
+				listaPPIC.add(new PercorridoPuntoIntereseCustom(ppi.getIdPercorrido(), ppi.getIdPuntoInterese(), ppi.getPosicion()));
+			}
+		}
+		
+		return listaPPIC;
+	}
 	
 }

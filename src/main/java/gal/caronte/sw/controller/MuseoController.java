@@ -1,7 +1,11 @@
 package gal.caronte.sw.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import gal.caronte.sw.custom.GardarPercorridoParam;
 import gal.caronte.sw.custom.PercorridoCustom;
 import gal.caronte.sw.custom.PercorridoPuntoIntereseCustom;
 import gal.caronte.sw.custom.PosicionCustom;
@@ -36,6 +42,24 @@ public class MuseoController {
 	
 	@Autowired
 	private MuseoManager museoManager;
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String test(HttpServletRequest request) {
+		
+		String retorno = String.valueOf(request.getRemoteAddr());
+		log.info("Direccion IP request: " + retorno);
+		
+		try {
+			log.info("Direccion IP localhost: " + String.valueOf(InetAddress.getLocalHost()));
+			retorno = retorno + " - " +String.valueOf(InetAddress.getLocalHost());
+		}
+		catch (UnknownHostException e) {
+			log.error("Erro ao recuperar a direccion localhost", e);
+		}
+		
+		return retorno;
+	}
 	
 	@RequestMapping(value = "/edificios", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -61,7 +85,21 @@ public class MuseoController {
 		if (lista != null) {
 			for (PuntoInterese poi : lista) {
 				listaPIC.add(new PuntoIntereseCustom(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
-						new PosicionCustom(poi.getIdEdificio(), poi.getIdPlanta(), poi.getLatitude(), poi.getLonxitude())));
+						new PosicionCustom(poi.getIdEdificio(), poi.getIdPlanta(), poi.getNivel(), poi.getLatitude(), poi.getLonxitude())));
+			}
+		}
+		
+		return listaPIC;
+	}
+	
+	private static List<PuntoInterese> convertirPuntoIntereseCustomPuntoInterese(List<PuntoIntereseCustom> lista) {
+		
+		List<PuntoInterese> listaPIC = new ArrayList<>();
+		
+		if (lista != null) {
+			for (PuntoIntereseCustom poi : lista) {
+				PosicionCustom posicion = poi.getPosicion();
+				listaPIC.add(new PuntoInterese(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(), posicion.getIdEdificio(), posicion.getIdPlanta(), posicion.getNivel(), posicion.getLatitude(), posicion.getLonxitude()));
 			}
 		}
 		
@@ -76,10 +114,19 @@ public class MuseoController {
 		return lista;
 	}
 	
-	@RequestMapping(value = "/percorrido/{idEdificio}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/percorridos/{idEdificio}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<PercorridoCustom> getPercorridoEdificio(@PathVariable short idEdificio) {
 		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificio(idEdificio);
+		
+		return convertirPercorridoPercorridoCustom(lista);
+	}
+	
+	@RequestMapping(value = "/percorridosidexterno/{idEdificioExterno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<PercorridoCustom> getPercorridoEdificioExterno(@PathVariable short idEdificioExterno) {
+		
+		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificioExterno(idEdificioExterno);
 		
 		return convertirPercorridoPercorridoCustom(lista);
 	}
@@ -116,6 +163,23 @@ public class MuseoController {
 		}
 		
 		return listaPPIC;
+	}
+	
+	@RequestMapping(value = "/percorrido/gardar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Short gardarPercorrido(@RequestBody GardarPercorridoParam gardarPercorridoCustom) {
+		
+		log.info("Gardar percorrido: " + gardarPercorridoCustom);
+		PercorridoCustom percorridoCustom = gardarPercorridoCustom.getPercorrido();
+		Percorrido percorrido = new Percorrido(percorridoCustom.getIdPercorrido(), percorridoCustom.getNome(), percorridoCustom.getDescricion(), percorridoCustom.getIdEdificio());
+		
+		List<PuntoInterese> listaPoi = convertirPuntoIntereseCustomPuntoInterese(gardarPercorridoCustom.getListaPoi());
+		
+		Short idPercorrido = this.museoManager.gardarPercorrido(percorrido, listaPoi);
+		
+		log.info("Identificador percorrido gardado: " + idPercorrido);
+		
+		return idPercorrido;
 	}
 	
 }

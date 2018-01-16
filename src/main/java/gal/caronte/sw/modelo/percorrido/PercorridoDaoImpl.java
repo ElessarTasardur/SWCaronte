@@ -11,7 +11,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import gal.caronte.sw.modelo.edificio.Edificio;
 
 @Repository
 public class PercorridoDaoImpl implements PercorridoDao {
@@ -24,6 +27,9 @@ public class PercorridoDaoImpl implements PercorridoDao {
 
 	@Value("${percorridoDao.selectPorIdEdificioQuery}")
 	private String selectPorIdEdificioQuery;
+
+	@Value("${percorridoDao.selectPorIdEdificioExternoQuery}")
+	private String selectPorIdEdificioExternoQuery;
 
 	@Value("${percorridoDao.insertQuery}")
 	private String insertQuery;
@@ -58,15 +64,28 @@ public class PercorridoDaoImpl implements PercorridoDao {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.ID_EDIFICIO, idEdificio);
 		return this.jdbcTemplate.query(this.selectPorIdEdificioQuery, parameters, ROW_MAPPER);
 	}
+
+	@Override
+	public List<Percorrido> getListaPercorridoPorIdEdificioExterno(Short idEdificioExterno) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Edificio.ID_EDIFICIO_EXTERNO, idEdificioExterno);
+		return this.jdbcTemplate.query(this.selectPorIdEdificioExternoQuery, parameters, ROW_MAPPER);
+	}
 	
 	@Override
 	public Short engadir(Percorrido percorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.NOME, percorrido.getNome())
 				.addValue(Percorrido.DESCRICION, percorrido.getDescricion())
 				.addValue(Percorrido.ID_EDIFICIO, percorrido.getIdEdificio());
-		GeneratedKeyHolder holder = new GeneratedKeyHolder();
+		KeyHolder holder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
-		return holder.getKey().shortValue();
+		Integer idPercorrido;
+		if (holder.getKeys().size() > 1) {
+			idPercorrido = (Integer) holder.getKeys().get(Percorrido.ID_PERCORRIDO);
+	    }
+		else {
+	    	idPercorrido= holder.getKey().intValue();
+	    }
+		return idPercorrido.shortValue();
 	}
 
 	@Override

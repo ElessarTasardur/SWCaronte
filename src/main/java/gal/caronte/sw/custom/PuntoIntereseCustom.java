@@ -74,6 +74,24 @@ public class PuntoIntereseCustom {
 	public void setPosicion(PosicionCustom posicion) {
 		this.posicion = posicion;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PuntoIntereseCustom [idPuntoInterese=");
+		builder.append(this.idPuntoInterese);
+		builder.append(", nome=");
+		builder.append(this.nome);
+		builder.append(", descricion=");
+		builder.append(this.descricion);
+		builder.append(", posicion=");
+		builder.append(this.posicion);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	
 }

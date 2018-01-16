@@ -52,9 +52,10 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 			String descricion = rs.getString(PuntoInterese.DESCRICION);
 			Short idEdificio = rs.getShort(PuntoInterese.ID_EDIFICIO);
 			Short idPlanta = rs.getShort(PuntoInterese.ID_PLANTA);
+			Short nivel = rs.getShort(PuntoInterese.NIVEL);
 			Float latitude = rs.getFloat(PuntoInterese.LATITUDE);
 			Float lonxitude = rs.getFloat(PuntoInterese.LONXITUDE);
-			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, latitude, lonxitude);
+			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, nivel, latitude, lonxitude);
 		}
 
 	};
@@ -90,11 +91,19 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 				.addValue(PuntoInterese.DESCRICION, puntoInterese.getDescricion())
 				.addValue(PuntoInterese.ID_EDIFICIO, puntoInterese.getIdEdificio())
 				.addValue(PuntoInterese.ID_PLANTA, puntoInterese.getIdPlanta())
+				.addValue(PuntoInterese.NIVEL, puntoInterese.getNivel())
 				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
 				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
 		GeneratedKeyHolder holder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
-		return holder.getKey().shortValue();
+		Integer idPoi;
+		if (holder.getKeys().size() > 1) {
+			idPoi = (Integer) holder.getKeys().get(Percorrido.ID_PERCORRIDO);
+	    }
+		else {
+			idPoi= holder.getKey().intValue();
+	    }
+		return idPoi.shortValue();
 	}
 
 	@Override
@@ -105,6 +114,7 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 				.addValue(PuntoInterese.DESCRICION, puntoInterese.getDescricion())
 				.addValue(PuntoInterese.ID_EDIFICIO, puntoInterese.getIdEdificio())
 				.addValue(PuntoInterese.ID_PLANTA, puntoInterese.getIdPlanta())
+				.addValue(PuntoInterese.NIVEL, puntoInterese.getNivel())
 				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
 				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
 		this.jdbcTemplate.update(this.updateQuery, parameters);

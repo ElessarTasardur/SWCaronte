@@ -10,6 +10,7 @@ public class PuntoInterese {
 	public static final String DESCRICION = "DESCRICION";
 	public static final String ID_EDIFICIO = "ID_EDIFICIO";
 	public static final String ID_PLANTA = "ID_PLANTA";
+	public static final String NIVEL = "NIVEL";
 	public static final String LATITUDE = "LATITUDE";
 	public static final String LONXITUDE = "LONXITUDE";
 	
@@ -18,10 +19,11 @@ public class PuntoInterese {
 	private String descricion;
 	private Short idEdificio;
 	private Short idPlanta;
+	private Short nivel;
 	private Float latitude;
 	private Float lonxitude;
 
-	public PuntoInterese(Short idPuntoInterese, String nome, String descricion, Short idEdificio, Short idPlanta,
+	public PuntoInterese(Short idPuntoInterese, String nome, String descricion, Short idEdificio, Short idPlanta, Short nivel,
 			Float latitude, Float lonxitude) {
 		super();
 		this.idPuntoInterese = idPuntoInterese;
@@ -29,6 +31,7 @@ public class PuntoInterese {
 		this.descricion = descricion;
 		this.idEdificio = idEdificio;
 		this.idPlanta = idPlanta;
+		this.nivel = nivel;
 		this.latitude = latitude;
 		this.lonxitude = lonxitude;
 	}
@@ -101,6 +104,20 @@ public class PuntoInterese {
 	 */
 	public void setIdPlanta(Short idPlanta) {
 		this.idPlanta = idPlanta;
+	}
+	
+	/**
+	 * @return the nivel
+	 */
+	public Short getNivel() {
+		return this.nivel;
+	}
+
+	/**
+	 * @param nivel the nivel to set
+	 */
+	public void setNivel(Short nivel) {
+		this.nivel = nivel;
 	}
 
 	/**

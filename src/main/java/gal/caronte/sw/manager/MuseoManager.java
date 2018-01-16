@@ -21,5 +21,9 @@ public interface MuseoManager {
 	List<PercorridoPuntoInterese> getListaPercorridoPuntoInterese(Short idPercorrido);
 
 	List<Percorrido> getListaPercorridoPorIdEdificio(short idEdificio);
+	
+	List<Percorrido> getListaPercorridoPorIdEdificioExterno(short idEdificioExterno);
+	
+	Short gardarPercorrido(Percorrido percorrido, List<PuntoInterese> listaIdPuntoInterese);
 
 }

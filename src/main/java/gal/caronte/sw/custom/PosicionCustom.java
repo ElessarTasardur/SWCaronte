@@ -4,6 +4,7 @@ public class PosicionCustom {
 	
 	private Short idEdificio;
 	private Short idPlanta;
+	private Short nivel;
 	private Float latitude;
 	private Float lonxitude;
 	
@@ -11,10 +12,11 @@ public class PosicionCustom {
 		super();
 	}
 
-	public PosicionCustom(Short idEdificio, Short idPlanta, Float latitude, Float lonxitude) {
+	public PosicionCustom(Short idEdificio, Short idPlanta, Short nivel, Float latitude, Float lonxitude) {
 		super();
 		this.idEdificio = idEdificio;
 		this.idPlanta = idPlanta;
+		this.nivel = nivel;
 		this.latitude = latitude;
 		this.lonxitude = lonxitude;
 	}
@@ -46,6 +48,20 @@ public class PosicionCustom {
 	public void setIdPlanta(Short idPlanta) {
 		this.idPlanta = idPlanta;
 	}
+	
+	/**
+	 * @return the nivel
+	 */
+	public Short getNivel() {
+		return this.nivel;
+	}
+
+	/**
+	 * @param nivel the nivel to set
+	 */
+	public void setNivel(Short nivel) {
+		this.nivel = nivel;
+	}
 
 	/**
 	 * @return the latitude
@@ -73,6 +89,26 @@ public class PosicionCustom {
 	 */
 	public void setLonxitude(Float lonxitude) {
 		this.lonxitude = lonxitude;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PosicionCustom [idEdificio=");
+		builder.append(this.idEdificio);
+		builder.append(", idPlanta=");
+		builder.append(this.idPlanta);
+		builder.append(", nivel=");
+		builder.append(this.nivel);
+		builder.append(", latitude=");
+		builder.append(this.latitude);
+		builder.append(", lonxitude=");
+		builder.append(this.lonxitude);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

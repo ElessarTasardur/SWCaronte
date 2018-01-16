@@ -74,5 +74,23 @@ public class PercorridoCustom {
 	public void setIdEdificio(Short idEdificio) {
 		this.idEdificio = idEdificio;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PercorridoCustom [idPercorrido=");
+		builder.append(this.idPercorrido);
+		builder.append(", nome=");
+		builder.append(this.nome);
+		builder.append(", descricion=");
+		builder.append(this.descricion);
+		builder.append(", idEdificio=");
+		builder.append(this.idEdificio);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

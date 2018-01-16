@@ -67,7 +67,7 @@ public class PercorridoPuntoInterese {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.idPercorrido, this.idPuntoInterese, this.posicion);
+		return Objects.hash(this.idPercorrido, this.idPuntoInterese);
 	}
 
 	/**
@@ -86,8 +86,7 @@ public class PercorridoPuntoInterese {
 		}
 		final PercorridoPuntoInterese other = (PercorridoPuntoInterese) obj;
 		return Objects.equals(this.idPercorrido, other.idPercorrido)
-				&& Objects.equals(this.idPuntoInterese, other.idPuntoInterese)
-				&& Objects.equals(this.posicion, other.posicion);
+				&& Objects.equals(this.idPuntoInterese, other.idPuntoInterese);
 	}
 	
 }

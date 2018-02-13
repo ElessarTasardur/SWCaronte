@@ -15,6 +15,7 @@
 
 		<spring.version>5.0.1.RELEASE</spring.version>
 		<slf4j.version>1.7.25</slf4j.version>
+		<google-api.version>1.23.0</google-api.version>
 	</properties>
 
 	<build>
@@ -102,6 +103,13 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		
+		<!-- GOOGLE -->
+		<dependency>
+		    <groupId>com.google.api-client</groupId>
+		    <artifactId>google-api-client</artifactId>
+		    <version>${google-api.version}</version>
 		</dependency>
 
 		<!-- LOG -->

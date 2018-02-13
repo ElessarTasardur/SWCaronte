@@ -7,6 +7,7 @@ import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
+import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
 
 public interface MuseoManager {
 
@@ -25,5 +26,7 @@ public interface MuseoManager {
 	List<Percorrido> getListaPercorridoPorIdEdificioExterno(short idEdificioExterno);
 	
 	Short gardarPercorrido(Percorrido percorrido, List<PuntoInterese> listaIdPuntoInterese);
+	
+	List<UsuarioEdificio> getListaUsuarioEdificioPorContaUsuario(String contaUsuario);
 
 }

@@ -5,34 +5,51 @@ import java.util.Objects;
 public class ContaSitum {
 
 	//Columnas
-	public static final String NOME_USUARIO = "NOME_USUARIO";
+	public static final String CONTA_USUARIO = "CONTA_USUARIO";
+	public static final String NOME = "NOME";
 	public static final String CONTRASINAL = "CONTRASINAL";
 	
-	private String nomeUsuario;
+	private String contaUsuario;
+	private String nome;
 	private String contrasinal;
 	
 	public ContaSitum() {
 		super();
 	}
 
-	public ContaSitum(String nomeUsuario, String contrasinal) {
+	public ContaSitum(String contaUsuario, String nome, String contrasinal) {
 		super();
-		this.nomeUsuario = nomeUsuario;
+		this.contaUsuario = contaUsuario;
+		this.nome = nome;
 		this.contrasinal = contrasinal;
 	}
 
 	/**
-	 * @return the nomeUsuario
+	 * @return the contaUsuario
 	 */
-	public String getNomeUsuario() {
-		return this.nomeUsuario;
+	public String getContaUsuario() {
+		return this.contaUsuario;
 	}
 
 	/**
-	 * @param nomeUsuario the nomeUsuario to set
+	 * @param contaUsuario the contaUsuario to set
 	 */
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setContaUsuario(String contaUsuario) {
+		this.contaUsuario = contaUsuario;
+	}
+
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return this.nome;
+	}
+
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	/**
@@ -54,7 +71,7 @@ public class ContaSitum {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.nomeUsuario);
+		return Objects.hash(this.contaUsuario);
 	}
 
 	/**
@@ -72,7 +89,7 @@ public class ContaSitum {
 			return false;
 		}
 		final ContaSitum other = (ContaSitum) obj;
-		return Objects.equals(this.nomeUsuario, other.nomeUsuario);
+		return Objects.equals(this.contaUsuario, other.contaUsuario);
 	}
 	
 	/**
@@ -81,8 +98,10 @@ public class ContaSitum {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ContaCustom [nomeUsuario=");
-		builder.append(this.nomeUsuario);
+		builder.append("ContaCustom [contaUsuario=");
+		builder.append(this.contaUsuario);
+		builder.append(", nome=");
+		builder.append(this.nome);
 		builder.append(", contrasinal=");
 		builder.append(this.contrasinal);
 		builder.append("]");

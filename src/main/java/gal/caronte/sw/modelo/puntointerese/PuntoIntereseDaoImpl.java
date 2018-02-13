@@ -124,6 +124,5 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 	public void eliminar(Short idPuntoInterese) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PuntoInterese.ID_PUNTO_INTERESE, idPuntoInterese);
 		this.jdbcTemplate.update(this.deleteQuery, parameters);
-		
 	}
 }

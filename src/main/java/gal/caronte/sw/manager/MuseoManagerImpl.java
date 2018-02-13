@@ -19,6 +19,8 @@ import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoIntereseDao;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoIntereseDao;
+import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
+import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificioDao;
 
 @Service
 public class MuseoManagerImpl implements MuseoManager {
@@ -39,6 +41,9 @@ public class MuseoManagerImpl implements MuseoManager {
 	
 	@Autowired
 	private PuntoIntereseDao puntoIntereseDao;
+	
+	@Autowired
+	private UsuarioEdificioDao usuarioEdificioDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -151,5 +156,11 @@ public class MuseoManagerImpl implements MuseoManager {
 		
 		return idPercorrido;
 	
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<UsuarioEdificio> getListaUsuarioEdificioPorContaUsuario(String contaUsuario) {
+		return this.usuarioEdificioDao.getPorContaUsuario(contaUsuario);
 	}
 }

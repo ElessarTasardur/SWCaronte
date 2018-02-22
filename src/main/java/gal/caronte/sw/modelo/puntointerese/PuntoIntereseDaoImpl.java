@@ -21,6 +21,15 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
+
+	@Value("${puntoIntereseDao.insertQuery}")
+	private String insertQuery;
+
+	@Value("${puntoIntereseDao.updateQuery}")
+	private String updateQuery;
+
+	@Value("${puntoIntereseDao.deleteQuery}")
+	private String deleteQuery;
 	
 	@Value("${puntoIntereseDao.selectPorIdQuery}")
 	private String selectPorIdQuery;
@@ -33,15 +42,6 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 
 	@Value("${puntoIntereseDao.selectPorIdPercorridoQuery}")
 	private String selectPorIdPercorridoQuery;
-
-	@Value("${puntoIntereseDao.insertQuery}")
-	private String insertQuery;
-
-	@Value("${puntoIntereseDao.updateQuery}")
-	private String updateQuery;
-
-	@Value("${puntoIntereseDao.deleteQuery}")
-	private String deleteQuery;
 
 	private final static RowMapper<PuntoInterese> ROW_MAPPER = new RowMapper<PuntoInterese>() {
 

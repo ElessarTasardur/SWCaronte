@@ -19,6 +19,8 @@ import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoIntereseDao;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoIntereseDao;
+import gal.caronte.sw.modelo.usuario.Usuario;
+import gal.caronte.sw.modelo.usuario.UsuarioDao;
 import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
 import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificioDao;
 
@@ -41,6 +43,9 @@ public class MuseoManagerImpl implements MuseoManager {
 	
 	@Autowired
 	private PuntoIntereseDao puntoIntereseDao;
+	
+	@Autowired
+	private UsuarioDao usuarioDao;
 	
 	@Autowired
 	private UsuarioEdificioDao usuarioEdificioDao;
@@ -160,7 +165,18 @@ public class MuseoManagerImpl implements MuseoManager {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<UsuarioEdificio> getListaUsuarioEdificioPorContaUsuario(String contaUsuario) {
-		return this.usuarioEdificioDao.getPorContaUsuario(contaUsuario);
+	public List<UsuarioEdificio> getListaUsuarioEdificioPorIdUsuario(Short idUsuario) {
+		return this.usuarioEdificioDao.getPorIdUsuario(idUsuario);
+	}
+
+	@Override
+	public Usuario getUsuario(String email) {
+		Usuario usuario = this.usuarioDao.getPorContaUsuario(email);
+		if (usuario == null) {
+			usuario = new Usuario(null, email);
+			Short idUsuario = this.usuarioDao.engadir(usuario);
+			usuario.setIdUsuario(idUsuario);
+		}
+		return usuario;
 	}
 }

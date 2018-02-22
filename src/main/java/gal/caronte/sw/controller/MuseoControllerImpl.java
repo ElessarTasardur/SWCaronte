@@ -43,6 +43,7 @@ import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
+import gal.caronte.sw.modelo.usuario.Usuario;
 import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
 
 @RestController
@@ -219,36 +220,39 @@ public class MuseoControllerImpl implements MuseoController {
 			JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
 			GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
-					// Specify the CLIENT_ID of the app that accesses the backend:
+					//Id do cliente da aplicacion para acceder a Google
 					.setAudience(Collections.singletonList("448237493715-f8qnmr9mblorb5bqqaoc836sftm7jl6k.apps.googleusercontent.com"))
 					.build();
 
 			GoogleIdToken idToken = verifier.verify(idTokenString);
 			if (idToken != null) {
 				Payload payload = idToken.getPayload();
-
-				// Print user identifier
-				String userId = payload.getSubject();
-				log.info("User ID: " + userId);
-
-//				// Get profile information from payload
-				String email = payload.getEmail();
-//				boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-//				String name = (String) payload.get("name");
-//				String pictureUrl = (String) payload.get("picture");
-//				String locale = (String) payload.get("locale");
-//				String familyName = (String) payload.get("family_name");
-//				String givenName = (String) payload.get("given_name");
-//
-
-				List<UsuarioEdificio> listaUsuarioEdificio = this.museoManager.getListaUsuarioEdificioPorContaUsuario(email);
-				for (UsuarioEdificio ue : listaUsuarioEdificio) {
-					if (ue.getAdministrador()) {
-						resposta.getListaIdEdificioAdministrador().add(ue.getIdEdificio());
+				boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+				if (emailVerified) {
+					String userId = payload.getSubject();
+					log.info("User ID: " + userId);
+	
+					// Get profile information from payload
+					String email = payload.getEmail();
+	//				String name = (String) payload.get("name");
+	//				String pictureUrl = (String) payload.get("picture");
+	//				String locale = (String) payload.get("locale");
+	//				String familyName = (String) payload.get("family_name");
+	//				String givenName = (String) payload.get("given_name");
+	
+					//Recupera a conta de usuario a traves dun email. Se non existe a conta, creaa
+					Usuario usuario = this.museoManager.getUsuario(email);
+					resposta.setIdUsuario(usuario.getIdUsuario());
+					resposta.setContaUsuario(email);
+					
+					List<UsuarioEdificio> listaUsuarioEdificio = this.museoManager.getListaUsuarioEdificioPorIdUsuario(usuario.getIdUsuario());
+					for (UsuarioEdificio ue : listaUsuarioEdificio) {
+						if (ue.getAdministrador()) {
+							resposta.getListaIdEdificioAdministrador().add(ue.getIdEdificio());
+						}
 					}
 				}
 				
-				resposta.setLoginCorrecto(true);
 			}
 			else {
 				log.error("Invalid ID token.");

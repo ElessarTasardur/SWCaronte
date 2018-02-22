@@ -6,7 +6,8 @@ import java.util.Objects;
 
 public class ComprobarLoginGoogleCustom {
 
-	private boolean loginCorrecto;
+	private Short idUsuario;
+	private String contaUsuario;
 	private List<Short> listaIdEdificioAdministrador;
 	
 	public ComprobarLoginGoogleCustom() {
@@ -14,24 +15,39 @@ public class ComprobarLoginGoogleCustom {
 		this.listaIdEdificioAdministrador = new ArrayList<>();
 	}
 	
-	public ComprobarLoginGoogleCustom(boolean loginCorrecto, List<Short> listaIdEdificioAdministrador) {
+	public ComprobarLoginGoogleCustom(Short idUsuario, String contaUsuario, List<Short> listaIdEdificioAdministrador) {
 		super();
-		this.loginCorrecto = loginCorrecto;
+		this.idUsuario = idUsuario;
+		this.contaUsuario = contaUsuario;
 		this.listaIdEdificioAdministrador = listaIdEdificioAdministrador;
 	}
 
 	/**
-	 * @return the loginCorrecto
+	 * @return the idUsuario
 	 */
-	public boolean isLoginCorrecto() {
-		return this.loginCorrecto;
+	public Short getIdUsuario() {
+		return this.idUsuario;
 	}
 
 	/**
-	 * @param loginCorrecto the loginCorrecto to set
+	 * @param idUsuario the idUsuario to set
 	 */
-	public void setLoginCorrecto(boolean loginCorrecto) {
-		this.loginCorrecto = loginCorrecto;
+	public void setIdUsuario(Short idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	/**
+	 * @return the contaUsuario
+	 */
+	public String getContaUsuario() {
+		return this.contaUsuario;
+	}
+
+	/**
+	 * @param contaUsuario the contaUsuario to set
+	 */
+	public void setContaUsuario(String contaUsuario) {
+		this.contaUsuario = contaUsuario;
 	}
 
 	/**
@@ -53,7 +69,7 @@ public class ComprobarLoginGoogleCustom {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.loginCorrecto, this.listaIdEdificioAdministrador);
+		return Objects.hash(this.idUsuario);
 	}
 
 	/**
@@ -71,8 +87,7 @@ public class ComprobarLoginGoogleCustom {
 			return false;
 		}
 		final ComprobarLoginGoogleCustom other = (ComprobarLoginGoogleCustom) obj;
-		return Objects.equals(this.loginCorrecto, other.loginCorrecto)
-				&& Objects.equals(this.listaIdEdificioAdministrador, other.listaIdEdificioAdministrador);
+		return Objects.equals(this.idUsuario, other.idUsuario);
 	}
 
 	/**
@@ -81,8 +96,10 @@ public class ComprobarLoginGoogleCustom {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ComprobarLoginGoogleCustom [loginCorrecto=");
-		builder.append(this.loginCorrecto);
+		builder.append("ComprobarLoginGoogleCustom [idUsuario=");
+		builder.append(this.idUsuario);
+		builder.append(", contaUsuario=");
+		builder.append(this.contaUsuario);
 		builder.append(", listaIdEdificioAdministrador=");
 		builder.append(this.listaIdEdificioAdministrador);
 		builder.append("]");

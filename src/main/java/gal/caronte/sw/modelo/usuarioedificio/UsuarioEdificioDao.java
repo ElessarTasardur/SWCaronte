@@ -10,6 +10,6 @@ public interface UsuarioEdificioDao {
 
 	void eliminar(Short idUsuario, Short idEdificio);
 
-	List<UsuarioEdificio> getPorContaUsuario(String contaUsuario);
+	List<UsuarioEdificio> getPorIdUsuario(Short idUsuario);
 	
 }

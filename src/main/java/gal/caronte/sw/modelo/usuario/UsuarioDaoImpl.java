@@ -27,6 +27,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	@Value("${usuarioDao.deleteQuery}")
 	private String deleteQuery;
+
+	@Value("${usuarioDao.selectPorContaUsuarioQuery}")
+	private String selectPorContaUsuarioQuery;
 	
 	private final static RowMapper<Usuario> ROW_MAPPER = new RowMapper<Usuario>() {
 
@@ -64,6 +67,12 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public void eliminar(Short idPercorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Usuario.ID_USUARIO, idPercorrido);
 		this.jdbcTemplate.update(this.deleteQuery, parameters);
+	}
+
+	@Override
+	public Usuario getPorContaUsuario(String contaUsuario) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Usuario.CONTA_USUARIO, contaUsuario);
+		return this.jdbcTemplate.queryForObject(this.selectPorContaUsuarioQuery, parameters, ROW_MAPPER);
 	}
 	
 }

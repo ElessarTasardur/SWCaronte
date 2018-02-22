@@ -7,5 +7,7 @@ public interface UsuarioDao {
 	void modificar(Usuario usuario);
 
 	void eliminar(Short idUsuario);
+	
+	Usuario getPorContaUsuario(String contaUsuario);
 
 }

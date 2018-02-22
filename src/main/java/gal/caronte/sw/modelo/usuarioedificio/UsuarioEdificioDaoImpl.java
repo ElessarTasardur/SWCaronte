@@ -12,8 +12,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import gal.caronte.sw.modelo.usuario.Usuario;
-
 @Repository
 public class UsuarioEdificioDaoImpl implements UsuarioEdificioDao {
 
@@ -68,8 +66,8 @@ public class UsuarioEdificioDaoImpl implements UsuarioEdificioDao {
 	}
 	
 	@Override
-	public List<UsuarioEdificio> getPorContaUsuario(String contaUsuario) {
-		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Usuario.CONTA_USUARIO, contaUsuario);
+	public List<UsuarioEdificio> getPorIdUsuario(Short idUsuario) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(UsuarioEdificio.ID_USUARIO, idUsuario);
 		return this.jdbcTemplate.query(this.selectPorIdUsuarioQuery, parameters, ROW_MAPPER);
 	}
 	

@@ -31,5 +31,7 @@ public interface MuseoManager {
 	List<UsuarioEdificio> getListaUsuarioEdificioPorIdUsuario(Short idUsuario);
 
 	Usuario getUsuario(String email);
+	
+	Short gardarPuntoInterese(PuntoInterese puntoInterese);
 
 }

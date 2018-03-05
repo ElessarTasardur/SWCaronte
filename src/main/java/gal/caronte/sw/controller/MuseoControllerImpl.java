@@ -45,6 +45,7 @@ import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
 import gal.caronte.sw.modelo.usuario.Usuario;
 import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
+import gal.caronte.sw.util.StringUtil;
 
 @RestController
 @RequestMapping(value = "/")
@@ -115,14 +116,22 @@ public class MuseoControllerImpl implements MuseoController {
 
 		if (lista != null) {
 			for (PuntoIntereseCustom poi : lista) {
-				PosicionCustom posicion = poi.getPosicion();
-				listaPIC.add(new PuntoInterese(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
-						posicion.getIdEdificio(), posicion.getIdPlanta(), posicion.getNivel(), posicion.getLatitude(),
-						posicion.getLonxitude()));
+				listaPIC.add(convertirPuntoIntereseCustomPuntoInterese(poi));
 			}
 		}
 
 		return listaPIC;
+	}
+	
+	private static PuntoInterese convertirPuntoIntereseCustomPuntoInterese(PuntoIntereseCustom poiCustom) {
+		PuntoInterese poi = null;
+		if (poiCustom != null) {
+			PosicionCustom posicion = poiCustom.getPosicion();
+			poi = new PuntoInterese(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
+					posicion.getIdEdificio(), posicion.getIdPlanta(), posicion.getNivel(), posicion.getLatitude(),
+					posicion.getLonxitude());
+		}
+		return poi;
 	}
 
 	@Override
@@ -195,7 +204,7 @@ public class MuseoControllerImpl implements MuseoController {
 	@ResponseBody
 	public Short gardarPercorrido(@RequestBody GardarPercorridoParam gardarPercorridoCustom) {
 
-		log.info("Gardar percorrido: " + gardarPercorridoCustom);
+		log.info(StringUtil.creaString("Gardar percorrido: ", gardarPercorridoCustom));
 		PercorridoCustom percorridoCustom = gardarPercorridoCustom.getPercorrido();
 		Percorrido percorrido = new Percorrido(percorridoCustom.getIdPercorrido(), percorridoCustom.getNome(),
 				percorridoCustom.getDescricion(), percorridoCustom.getIdEdificio());
@@ -204,8 +213,8 @@ public class MuseoControllerImpl implements MuseoController {
 
 		Short idPercorrido = this.museoManager.gardarPercorrido(percorrido, listaPoi);
 
-		log.info("Identificador percorrido gardado: " + idPercorrido);
-
+		log.info(StringUtil.creaString("Identificador percorrido gardado: ", idPercorrido));
+		
 		return idPercorrido;
 	}
 
@@ -265,4 +274,21 @@ public class MuseoControllerImpl implements MuseoController {
 		
 		return resposta;
 	}
+	
+	@Override
+	@RequestMapping(value = "/poi/gardar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Short gardarPuntoInterese(@RequestBody PuntoIntereseCustom poiCustom) {
+
+		log.info(StringUtil.creaString("Gardar poi: ", poiCustom));
+		
+		PuntoInterese poi = convertirPuntoIntereseCustomPuntoInterese(poiCustom);
+
+		Short idPoi = this.museoManager.gardarPuntoInterese(poi);
+
+		log.info(StringUtil.creaString("Identificador poi gardado: ", idPoi));
+		
+		return idPoi;
+	}
+	
 }

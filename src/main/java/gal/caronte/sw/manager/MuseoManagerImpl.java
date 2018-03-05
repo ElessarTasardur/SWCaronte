@@ -109,40 +109,43 @@ public class MuseoManagerImpl implements MuseoManager {
 		if (idPercorrido != null) {
 			this.percorridoDao.modificar(percorrido);
 			
-			List<PercorridoPuntoInterese> listaPuntoPrevio = this.percorridoPuntoIntereseDao.getListaPercorridoPuntoInteresePorIdPercorrido(idPercorrido);
-			List<PercorridoPuntoInterese> listaPuntoModificar = new ArrayList<>();
-			List<PercorridoPuntoInterese> listaPuntoEngadir = new ArrayList<>();
-			
-			short posicion = 1;
-			PercorridoPuntoInterese ppi = new PercorridoPuntoInterese(idPercorrido, null, null);
-			for (PuntoInterese poi : listaPuntoInterese) {
-				ppi.setIdPuntoInterese(poi.getIdPuntoInterese());
-				ppi.setPosicion(posicion);
-				//Se a lista de puntos previos conten o punto de interese debemos modificalo
-				if (listaPuntoPrevio.contains(ppi)) {
-					listaPuntoPrevio.remove(ppi);
-					listaPuntoModificar.add(ppi);
+			//Se se envian puntos comprobamos as modificacions
+			if (!listaPuntoInterese.isEmpty()) {
+				List<PercorridoPuntoInterese> listaPuntoPrevio = this.percorridoPuntoIntereseDao.getListaPercorridoPuntoInteresePorIdPercorrido(idPercorrido);
+				List<PercorridoPuntoInterese> listaPuntoModificar = new ArrayList<>();
+				List<PercorridoPuntoInterese> listaPuntoEngadir = new ArrayList<>();
+				
+				short posicion = 1;
+				PercorridoPuntoInterese ppi = new PercorridoPuntoInterese(idPercorrido, null, null);
+				for (PuntoInterese poi : listaPuntoInterese) {
+					ppi.setIdPuntoInterese(poi.getIdPuntoInterese());
+					ppi.setPosicion(posicion);
+					//Se a lista de puntos previos conten o punto de interese debemos modificalo
+					if (listaPuntoPrevio.contains(ppi)) {
+						listaPuntoPrevio.remove(ppi);
+						listaPuntoModificar.add(ppi);
+					}
+					//Se non o conten, debemos crealo
+					else {
+						listaPuntoEngadir.add(ppi);
+					}
+					posicion++;
 				}
-				//Se non o conten, debemos crealo
-				else {
-					listaPuntoEngadir.add(ppi);
+				
+				//Lista de puntos a modificar
+				for (PercorridoPuntoInterese ppiModificar : listaPuntoModificar) {
+					this.percorridoPuntoIntereseDao.modificar(ppiModificar);
 				}
-				posicion++;
-			}
-			
-			//Lista de puntos a modificar
-			for (PercorridoPuntoInterese ppiModificar : listaPuntoModificar) {
-				this.percorridoPuntoIntereseDao.modificar(ppiModificar);
-			}
-			
-			//Lista de puntos a engadir
-			for (PercorridoPuntoInterese ppiEngadir : listaPuntoEngadir) {
-				this.percorridoPuntoIntereseDao.engadir(ppiEngadir);
-			}
-			
-			//Lista de puntos a eliminar
-			for (PercorridoPuntoInterese ppiEliminar : listaPuntoEngadir) {
-				this.percorridoPuntoIntereseDao.eliminar(idPercorrido, ppiEliminar.getIdPuntoInterese());
+				
+				//Lista de puntos a engadir
+				for (PercorridoPuntoInterese ppiEngadir : listaPuntoEngadir) {
+					this.percorridoPuntoIntereseDao.engadir(ppiEngadir);
+				}
+				
+				//Lista de puntos a eliminar
+				for (PercorridoPuntoInterese ppiEliminar : listaPuntoEngadir) {
+					this.percorridoPuntoIntereseDao.eliminar(idPercorrido, ppiEliminar.getIdPuntoInterese());
+				}
 			}
 			
 		}
@@ -178,5 +181,18 @@ public class MuseoManagerImpl implements MuseoManager {
 			usuario.setIdUsuario(idUsuario);
 		}
 		return usuario;
+	}
+
+	@Override
+	@Transactional
+	public Short gardarPuntoInterese(PuntoInterese puntoInterese) {
+		Short idPuntoInterese = puntoInterese.getIdPuntoInterese();
+		if (idPuntoInterese != null) {
+			this.puntoIntereseDao.modificar(puntoInterese);
+		}
+		else {
+			idPuntoInterese = this.puntoIntereseDao.engadir(puntoInterese);
+		}
+		return idPuntoInterese;
 	}
 }

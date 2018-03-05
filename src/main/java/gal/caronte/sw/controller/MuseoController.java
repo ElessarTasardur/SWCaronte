@@ -35,4 +35,6 @@ public interface MuseoController {
 	
 	ComprobarLoginGoogleCustom comprobarUsuarioGoogle(@RequestBody String tokenId);
 	
+	Short gardarPuntoInterese(@RequestBody PuntoIntereseCustom poiCustom);
+	
 }

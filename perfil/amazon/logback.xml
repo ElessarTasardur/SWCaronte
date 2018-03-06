@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<appender name="ficheiro" class="ch.qos.logback.core.FileAppender">
+	<appender name="ficheiro" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>/var/log/tomcat8/CaronteSW/CaronteSW.log</file>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>CaronteSW.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>CaronteSW-%d{yyyy-MM-dd}.log</fileNamePattern>
 
 			<!-- keep 30 days' worth of history capped at 3GB total size -->
 			<maxHistory>30</maxHistory>

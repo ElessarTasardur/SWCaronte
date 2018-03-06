@@ -127,7 +127,7 @@ public class MuseoControllerImpl implements MuseoController {
 		PuntoInterese poi = null;
 		if (poiCustom != null) {
 			PosicionCustom posicion = poiCustom.getPosicion();
-			poi = new PuntoInterese(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
+			poi = new PuntoInterese(poiCustom.getIdPuntoInterese(), poiCustom.getNome(), poiCustom.getDescricion(),
 					posicion.getIdEdificio(), posicion.getIdPlanta(), posicion.getNivel(), posicion.getLatitude(),
 					posicion.getLonxitude());
 		}
@@ -219,9 +219,9 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@RequestMapping(value = "/comprobarUsuarioGoogle", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/comprobarUsuarioGoogle", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ComprobarLoginGoogleCustom comprobarUsuarioGoogle(@PathVariable String idTokenString) {
+	public ComprobarLoginGoogleCustom comprobarUsuarioGoogle(@RequestBody String idTokenString) {
 
 		ComprobarLoginGoogleCustom resposta = new ComprobarLoginGoogleCustom();
 		try {

@@ -12,8 +12,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
-
 @Repository
 public class ContaSitumDaoImpl implements ContaSitumDao {
 

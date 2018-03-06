@@ -2,15 +2,14 @@
 <configuration>
 
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>
-				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{5} - %msg%n
-			</Pattern>
-		</layout>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{5} - %msg%n</pattern>
+		</encoder>
 	</appender>
 
-	<appender name="ficheiro" class="ch.qos.logback.core.FileAppender">
+	<appender name="ficheiro" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>W:/logs/CaronteSW/CaronteSW.log</file>
+		<!-- <pathToFile>W:/logs/CaronteSW/</pathToFile> -->
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->

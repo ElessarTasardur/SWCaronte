@@ -25,6 +25,8 @@ public interface MuseoController {
 	
 	List<ContaSitum> getContasSitum();
 	
+	List<ContaSitum> getContasSitum(@PathVariable short idUsuario);
+	
 	List<PercorridoCustom> getPercorridoEdificio(@PathVariable short idEdificio);
 	
 	List<PercorridoCustom> getPercorridoEdificioExterno(@PathVariable short idEdificioExterno);
@@ -33,8 +35,12 @@ public interface MuseoController {
 	
 	Short gardarPercorrido(@RequestBody GardarPercorridoParam gardarPercorridoCustom);
 	
+	Boolean eliminarPercorrido(@RequestBody Short idPercorrido);
+	
 	ComprobarLoginGoogleCustom comprobarUsuarioGoogle(@RequestBody String tokenId);
 	
 	Short gardarPuntoInterese(@RequestBody PuntoIntereseCustom poiCustom);
+	
+	Boolean eliminarPuntoInterese(@RequestBody Short idPoi);
 	
 }

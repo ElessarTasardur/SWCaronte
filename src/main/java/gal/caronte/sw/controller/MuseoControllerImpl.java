@@ -138,7 +138,16 @@ public class MuseoControllerImpl implements MuseoController {
 	@RequestMapping(value = "/contas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<ContaSitum> getContasSitum() {
-		List<ContaSitum> lista = this.museoManager.getListaContaSitum();
+		List<ContaSitum> lista = this.museoManager.getListaContaSitum(null);
+
+		return lista;
+	}
+	
+	@Override
+	@RequestMapping(value = "/contas/{idUsuario}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<ContaSitum> getContasSitum(@PathVariable short idUsuario) {
+		List<ContaSitum> lista = this.museoManager.getListaContaSitum(idUsuario);
 
 		return lista;
 	}
@@ -289,6 +298,34 @@ public class MuseoControllerImpl implements MuseoController {
 		log.info(StringUtil.creaString("Identificador poi gardado: ", idPoi));
 		
 		return idPoi;
+	}
+
+	@Override
+	@RequestMapping(value = "/percorrido/eliminar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Boolean eliminarPercorrido(@RequestBody Short idPercorrido) {
+		
+		log.info(StringUtil.creaString("Eliminar percorrido: ", idPercorrido));
+		
+		this.museoManager.eliminarPercorrido(idPercorrido);
+		
+		log.info(StringUtil.creaString("Percorrido ", idPercorrido, " eliminado correctamente"));
+		
+		return true;
+	}
+
+	@Override
+	@RequestMapping(value = "/poi/eliminar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Boolean eliminarPuntoInterese(@RequestBody Short idPoi) {
+		
+		log.info(StringUtil.creaString("Eliminar poi: ", idPoi));
+		
+		boolean correcto = this.museoManager.eliminarPuntoInterese(idPoi);
+
+		log.info(StringUtil.creaString("Punto interese ", idPoi, " eliminado correctamente: ", correcto));
+		
+		return correcto;
 	}
 	
 }

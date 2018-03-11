@@ -10,6 +10,10 @@ public interface PercorridoPuntoIntereseDao {
 
 	void eliminar(Short idPercorrido, Short idPuntoInterese);
 	
+	void eliminarPorIdPercorrido(Short idPercorrido);
+	
 	List<PercorridoPuntoInterese> getListaPercorridoPuntoInteresePorIdPercorrido(Short idPercorrido);
+	
+	int getNumeroPercorridoPorIdPuntoInterese(Short idPoi);
 	
 }

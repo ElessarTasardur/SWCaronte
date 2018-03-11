@@ -20,6 +20,8 @@ public interface MuseoManager {
 
 	List<ContaSitum> getListaContaSitum();
 	
+	List<ContaSitum> getListaContaSitum(Short idUsuario);
+	
 	List<PercorridoPuntoInterese> getListaPercorridoPuntoInterese(Short idPercorrido);
 
 	List<Percorrido> getListaPercorridoPorIdEdificio(short idEdificio);
@@ -28,10 +30,14 @@ public interface MuseoManager {
 	
 	Short gardarPercorrido(Percorrido percorrido, List<PuntoInterese> listaIdPuntoInterese);
 	
+	void eliminarPercorrido(Short idPercorrido);
+	
 	List<UsuarioEdificio> getListaUsuarioEdificioPorIdUsuario(Short idUsuario);
 
 	Usuario getUsuario(String email);
 	
 	Short gardarPuntoInterese(PuntoInterese puntoInterese);
+	
+	boolean eliminarPuntoInterese(Short idPoi);
 
 }

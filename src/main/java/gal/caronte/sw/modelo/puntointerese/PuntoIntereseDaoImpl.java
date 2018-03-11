@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import gal.caronte.sw.modelo.edificio.Edificio;
@@ -53,8 +54,8 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 			Short idEdificio = rs.getShort(PuntoInterese.ID_EDIFICIO);
 			Short idPlanta = rs.getShort(PuntoInterese.ID_PLANTA);
 			Short nivel = rs.getShort(PuntoInterese.NIVEL);
-			Float latitude = rs.getFloat(PuntoInterese.LATITUDE);
-			Float lonxitude = rs.getFloat(PuntoInterese.LONXITUDE);
+			Double latitude = rs.getDouble(PuntoInterese.LATITUDE);
+			Double lonxitude = rs.getDouble(PuntoInterese.LONXITUDE);
 			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, nivel, latitude, lonxitude);
 		}
 
@@ -94,18 +95,18 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 				.addValue(PuntoInterese.NIVEL, puntoInterese.getNivel())
 				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
 				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
-		GeneratedKeyHolder holder = new GeneratedKeyHolder();
+		KeyHolder holder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
 		Integer idPoi;
 		if (holder.getKeys().size() > 1) {
-			idPoi = (Integer) holder.getKeys().get(Percorrido.ID_PERCORRIDO);
+			idPoi = (Integer) holder.getKeys().get(PuntoInterese.ID_PUNTO_INTERESE);
 	    }
 		else {
 			idPoi= holder.getKey().intValue();
 	    }
 		return idPoi.shortValue();
 	}
-
+	
 	@Override
 	public void modificar(PuntoInterese puntoInterese) {
 		SqlParameterSource parameters = new MapSqlParameterSource()

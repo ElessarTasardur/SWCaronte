@@ -11,5 +11,9 @@ public interface ContaSitumDao {
 	void eliminar(String contaUsuario);
 	
 	List<ContaSitum> getTodas();
+
+	List<ContaSitum> getPublica();
+
+	List<ContaSitum> getContaPorIdUsuario(Short idUsuario);
 	
 }

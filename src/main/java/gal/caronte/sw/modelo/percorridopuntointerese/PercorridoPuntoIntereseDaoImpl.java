@@ -27,9 +27,15 @@ public class PercorridoPuntoIntereseDaoImpl implements PercorridoPuntoIntereseDa
 	@Value("${percorridoPuntoIntereseDao.deleteQuery}")
 	private String deleteQuery;
 	
+	@Value("${percorridoPuntoIntereseDao.deletePorIdPercorridoQuery}")
+	private String deletePorIdPercorridoQuery;
+	
 	@Value("${percorridoPuntoIntereseDao.selectPorIdPercorridoQuery}")
 	private String selectPorIdPercorridoQuery;
-
+	
+	@Value("${percorridoPuntoIntereseDao.selectCountPercorridoPorIdPoiQuery}")
+	private String selectCountPercorridoPorIdPoiQuery;
+	
 	private final static RowMapper<PercorridoPuntoInterese> ROW_MAPPER = new RowMapper<PercorridoPuntoInterese>() {
 
 		@Override
@@ -64,11 +70,23 @@ public class PercorridoPuntoIntereseDaoImpl implements PercorridoPuntoIntereseDa
 				.addValue(PercorridoPuntoInterese.ID_PUNTO_INTERESE, idPuntoInterese);
 		this.jdbcTemplate.update(this.deleteQuery, parameters);
 	}
+	
+	@Override
+	public void eliminarPorIdPercorrido(Short idPercorrido) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PercorridoPuntoInterese.ID_PERCORRIDO, idPercorrido);
+		this.jdbcTemplate.update(this.deletePorIdPercorridoQuery, parameters);
+	}
 
 	@Override
 	public List<PercorridoPuntoInterese> getListaPercorridoPuntoInteresePorIdPercorrido(Short idPercorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PercorridoPuntoInterese.ID_PERCORRIDO, idPercorrido);
 		return this.jdbcTemplate.query(this.selectPorIdPercorridoQuery, parameters, ROW_MAPPER);
+	}
+	
+	@Override
+	public int getNumeroPercorridoPorIdPuntoInterese(Short idPoi) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(PercorridoPuntoInterese.ID_PUNTO_INTERESE, idPoi);
+		return this.jdbcTemplate.query(this.selectCountPercorridoPorIdPoiQuery, parameters, ROW_MAPPER).size();
 	}
 
 }

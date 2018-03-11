@@ -22,15 +22,6 @@ public class PercorridoDaoImpl implements PercorridoDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	@Value("${percorridoDao.selectPorIdQuery}")
-	private String selectPorIdQuery;
-
-	@Value("${percorridoDao.selectPorIdEdificioQuery}")
-	private String selectPorIdEdificioQuery;
-
-	@Value("${percorridoDao.selectPorIdEdificioExternoQuery}")
-	private String selectPorIdEdificioExternoQuery;
-
 	@Value("${percorridoDao.insertQuery}")
 	private String insertQuery;
 
@@ -39,6 +30,15 @@ public class PercorridoDaoImpl implements PercorridoDao {
 
 	@Value("${percorridoDao.deleteQuery}")
 	private String deleteQuery;
+
+	@Value("${percorridoDao.selectPorIdQuery}")
+	private String selectPorIdQuery;
+
+	@Value("${percorridoDao.selectPorIdEdificioQuery}")
+	private String selectPorIdEdificioQuery;
+
+	@Value("${percorridoDao.selectPorIdEdificioExternoQuery}")
+	private String selectPorIdEdificioExternoQuery;
 
 	private final static RowMapper<Percorrido> ROW_MAPPER = new RowMapper<Percorrido>() {
 
@@ -73,7 +73,8 @@ public class PercorridoDaoImpl implements PercorridoDao {
 	
 	@Override
 	public Short engadir(Percorrido percorrido) {
-		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.NOME, percorrido.getNome())
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue(Percorrido.NOME, percorrido.getNome())
 				.addValue(Percorrido.DESCRICION, percorrido.getDescricion())
 				.addValue(Percorrido.ID_EDIFICIO, percorrido.getIdEdificio());
 		KeyHolder holder = new GeneratedKeyHolder();

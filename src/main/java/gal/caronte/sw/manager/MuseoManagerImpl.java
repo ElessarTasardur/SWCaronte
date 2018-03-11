@@ -23,6 +23,7 @@ import gal.caronte.sw.modelo.usuario.Usuario;
 import gal.caronte.sw.modelo.usuario.UsuarioDao;
 import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
 import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificioDao;
+import gal.caronte.sw.util.StringUtil;
 
 @Service
 public class MuseoManagerImpl implements MuseoManager {
@@ -71,7 +72,13 @@ public class MuseoManagerImpl implements MuseoManager {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ContaSitum> getListaContaSitum() {
-		return this.contaSitumDao.getTodas();
+		return this.contaSitumDao.getPublica();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<ContaSitum> getListaContaSitum(Short idUsuario) {
+		return this.contaSitumDao.getContaPorIdUsuario(idUsuario);
 	}
 
 	@Override
@@ -194,5 +201,25 @@ public class MuseoManagerImpl implements MuseoManager {
 			idPuntoInterese = this.puntoIntereseDao.engadir(puntoInterese);
 		}
 		return idPuntoInterese;
+	}
+
+	@Override
+	public void eliminarPercorrido(Short idPercorrido) {
+		this.percorridoPuntoIntereseDao.eliminarPorIdPercorrido(idPercorrido);
+		this.percorridoDao.eliminar(idPercorrido);
+	}
+
+	@Override
+	public boolean eliminarPuntoInterese(Short idPoi) {
+		
+		boolean retorno = false;
+		if (this.percorridoPuntoIntereseDao.getNumeroPercorridoPorIdPuntoInterese(idPoi) == 0) {
+			this.puntoIntereseDao.eliminar(idPoi);
+			retorno = true;
+		}
+		else {
+			log.info(StringUtil.creaString("Non se pode eliminar o punto de interese ", idPoi, " porque esta incluido nalgun percorrido "));
+		}
+		return retorno;
 	}
 }

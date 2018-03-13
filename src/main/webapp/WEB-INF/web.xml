@@ -38,5 +38,28 @@
 		<param-name>spring.liveBeansView.mbeanDomain</param-name>
 		<param-value>dev</param-value>
 	</context-param>
+	
+	<!-- Directivas de seguridade -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Privado</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>aplicacion</role-name>
+        </auth-constraint>
+    </security-constraint>
+   
+    <!-- Autenticacion basica -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>CaronteRealm</realm-name>
+    </login-config>
+   
+    <security-role>
+        <role-name>aplicacion</role-name>
+    </security-role>
 
 </web-app>

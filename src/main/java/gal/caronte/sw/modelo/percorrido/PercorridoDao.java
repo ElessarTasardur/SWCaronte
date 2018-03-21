@@ -14,6 +14,6 @@ public interface PercorridoDao {
 
 	void modificar(Percorrido percorrido);
 
-	void eliminar(Short idPercorrido);
+	boolean eliminar(Short idPercorrido);
 	
 }

@@ -82,6 +82,8 @@ public class MuseoControllerImpl implements MuseoController {
 	public List<Edificio> getEdificios() {
 		List<Edificio> lista = this.museoManager.getTodosEdificios();
 
+		log.info(StringUtil.creaString("Recuperados ", lista.size(), " edificios"));
+		
 		return lista;
 	}
 
@@ -91,8 +93,9 @@ public class MuseoControllerImpl implements MuseoController {
 	public List<PuntoIntereseCustom> getPois(@PathVariable short idEdificioExterno) {
 		List<PuntoInterese> lista = this.museoManager.getPorIdEdificioExterno(idEdificioExterno);
 
+		log.info(StringUtil.creaString("Recuperados ", lista.size(), " POIs do edificio con id externo ", idEdificioExterno));
+		
 		return convertirPuntoInteresePuntoIntereseCustom(lista);
-
 	}
 
 	private static List<PuntoIntereseCustom> convertirPuntoInteresePuntoIntereseCustom(List<PuntoInterese> lista) {
@@ -139,6 +142,8 @@ public class MuseoControllerImpl implements MuseoController {
 	@ResponseBody
 	public List<ContaSitum> getContasSitum() {
 		List<ContaSitum> lista = this.museoManager.getListaContaSitum(null);
+		
+		log.info(StringUtil.creaString("Recuperadas ", lista.size(), " contas de Situm"));
 
 		return lista;
 	}
@@ -148,6 +153,8 @@ public class MuseoControllerImpl implements MuseoController {
 	@ResponseBody
 	public List<ContaSitum> getContasSitum(@PathVariable short idUsuario) {
 		List<ContaSitum> lista = this.museoManager.getListaContaSitum(idUsuario);
+		
+		log.info(StringUtil.creaString("Recuperadas ", lista.size(), " contas de Situm para o usuario con id ", idUsuario));
 
 		return lista;
 	}
@@ -158,6 +165,8 @@ public class MuseoControllerImpl implements MuseoController {
 	public List<PercorridoCustom> getPercorridoEdificio(@PathVariable short idEdificio) {
 		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificio(idEdificio);
 
+		log.info(StringUtil.creaString("Recuperados ", lista.size(), " percorridos do edificio con id ", idEdificio));
+		
 		return convertirPercorridoPercorridoCustom(lista);
 	}
 
@@ -165,9 +174,10 @@ public class MuseoControllerImpl implements MuseoController {
 	@RequestMapping(value = "/percorridosidexterno/{idEdificioExterno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<PercorridoCustom> getPercorridoEdificioExterno(@PathVariable short idEdificioExterno) {
-
 		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificioExterno(idEdificioExterno);
 
+		log.info(StringUtil.creaString("Recuperados ", lista.size(), " percorridos do edificio con id externo ", idEdificioExterno));
+		
 		return convertirPercorridoPercorridoCustom(lista);
 	}
 
@@ -191,6 +201,8 @@ public class MuseoControllerImpl implements MuseoController {
 	public List<PercorridoPuntoIntereseCustom> getPuntosInteresePercorrido(@PathVariable short idPercorrido) {
 		List<PercorridoPuntoInterese> lista = this.museoManager.getListaPercorridoPuntoInterese(idPercorrido);
 
+		log.info(StringUtil.creaString("Recuperados os ", lista.size(), " POIs do percorrido: ", idPercorrido));
+		
 		return convertirPPIPPIC(lista);
 	}
 

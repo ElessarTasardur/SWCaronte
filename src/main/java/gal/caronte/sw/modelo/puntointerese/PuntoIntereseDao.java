@@ -16,6 +16,6 @@ public interface PuntoIntereseDao {
 
 	void modificar(PuntoInterese puntoInterese);
 
-	void eliminar(Short idPuntoInterese);
+	boolean eliminar(Short idPuntoInterese);
 	
 }

@@ -98,9 +98,9 @@ public class PercorridoDaoImpl implements PercorridoDao {
 	}
 
 	@Override
-	public void eliminar(Short idPercorrido) {
+	public boolean eliminar(Short idPercorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.ID_PERCORRIDO, idPercorrido);
-		this.jdbcTemplate.update(this.deleteQuery, parameters);
+		return this.jdbcTemplate.update(this.deleteQuery, parameters) == 1;
 	}
 
 }

@@ -214,8 +214,7 @@ public class MuseoManagerImpl implements MuseoManager {
 		
 		boolean retorno = false;
 		if (this.percorridoPuntoIntereseDao.getNumeroPercorridoPorIdPuntoInterese(idPoi) == 0) {
-			this.puntoIntereseDao.eliminar(idPoi);
-			retorno = true;
+			retorno = this.puntoIntereseDao.eliminar(idPoi);
 		}
 		else {
 			log.info(StringUtil.creaString("Non se pode eliminar o punto de interese ", idPoi, " porque esta incluido nalgun percorrido "));

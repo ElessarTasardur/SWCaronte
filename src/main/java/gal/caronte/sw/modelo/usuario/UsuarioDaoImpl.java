@@ -2,6 +2,7 @@ package gal.caronte.sw.modelo.usuario;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,7 +73,16 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	@Override
 	public Usuario getPorContaUsuario(String contaUsuario) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Usuario.CONTA_USUARIO, contaUsuario);
-		return this.jdbcTemplate.queryForObject(this.selectPorContaUsuarioQuery, parameters, ROW_MAPPER);
+		
+		List<Usuario> listaUsuario = this.jdbcTemplate.query(this.selectPorContaUsuarioQuery, parameters, ROW_MAPPER);
+		
+		Usuario resultado = null;
+		if (listaUsuario != null
+				&& !listaUsuario.isEmpty()) {
+			resultado = listaUsuario.get(0);
+		}
+		
+		return resultado;
 	}
 	
 }

@@ -111,7 +111,6 @@ public class MuseoManagerImpl implements MuseoManager {
 			}
 		}
 		
-		
 		//Se o percorrido xa existia, gardamos a modificacion
 		if (idPercorrido != null) {
 			this.percorridoDao.modificar(percorrido);
@@ -180,6 +179,7 @@ public class MuseoManagerImpl implements MuseoManager {
 	}
 
 	@Override
+	@Transactional
 	public Usuario getUsuario(String email) {
 		Usuario usuario = this.usuarioDao.getPorContaUsuario(email);
 		if (usuario == null) {
@@ -204,12 +204,14 @@ public class MuseoManagerImpl implements MuseoManager {
 	}
 
 	@Override
+	@Transactional
 	public void eliminarPercorrido(Short idPercorrido) {
 		this.percorridoPuntoIntereseDao.eliminarPorIdPercorrido(idPercorrido);
 		this.percorridoDao.eliminar(idPercorrido);
 	}
 
 	@Override
+	@Transactional
 	public boolean eliminarPuntoInterese(Short idPoi) {
 		
 		boolean retorno = false;

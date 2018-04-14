@@ -25,14 +25,14 @@ public class StringUtil {
 		return creaStringBuilder(textos).toString();
 	}
 	
-	public static List<Integer> convertirCSVListaInteger(String csv) {
-		List<Integer> listaRetorno = new ArrayList<>();
+	public static List<Short> convertirCSVListaShort(String csv) {
+		List<Short> listaRetorno = new ArrayList<>();
 		
 		if (csv != null) {
 			try {
 				String[] cadeas = csv.split(COMA);
 				for (String cadea : cadeas) {
-					listaRetorno.add(Integer.valueOf(cadea));
+					listaRetorno.add(Short.valueOf(cadea));
 				}
 			}
 			catch (NumberFormatException e) {

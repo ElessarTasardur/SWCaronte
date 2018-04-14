@@ -33,6 +33,9 @@ public class ImaxeDaoImpl implements ImaxeDao {
 	@Value("${imaxeDao.selectPorIdPuntoIntereseQuery}")
 	private String selectPorIdPuntoIntereseQuery;
 	
+	@Value("${imaxeDao.selectPorListaIdImaxeQuery}")
+	private String selectPorListaIdImaxeQuery;
+	
 	private final static RowMapper<Imaxe> ROW_MAPPER = new RowMapper<Imaxe>() {
 
 		@Override
@@ -93,6 +96,12 @@ public class ImaxeDaoImpl implements ImaxeDao {
 	public List<Imaxe> getListaImaxePorIdPuntoInterese(Short idPuntoInterese) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Imaxe.ID_PUNTO_INTERESE, idPuntoInterese);
 		return this.jdbcTemplate.query(this.selectPorIdPuntoIntereseQuery, parameters, ROW_MAPPER);
+	}
+
+	@Override
+	public List<Imaxe> getListaImaxePorListaIdImaxe(List<Short> listaIdImaxe) {
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Imaxe.ID_IMAXE, listaIdImaxe);
+		return this.jdbcTemplate.query(this.selectPorListaIdImaxeQuery, parameters, ROW_MAPPER);
 	}
 
 }

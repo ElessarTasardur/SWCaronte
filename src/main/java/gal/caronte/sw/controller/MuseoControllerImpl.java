@@ -33,6 +33,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import gal.caronte.sw.custom.ComprobarLoginGoogleCustom;
 import gal.caronte.sw.custom.GardarPercorridoParam;
+import gal.caronte.sw.custom.ImaxeCustom;
 import gal.caronte.sw.custom.PercorridoCustom;
 import gal.caronte.sw.custom.PercorridoPuntoIntereseCustom;
 import gal.caronte.sw.custom.PosicionCustom;
@@ -40,6 +41,7 @@ import gal.caronte.sw.custom.PuntoIntereseCustom;
 import gal.caronte.sw.manager.MuseoManager;
 import gal.caronte.sw.modelo.contasitum.ContaSitum;
 import gal.caronte.sw.modelo.edificio.Edificio;
+import gal.caronte.sw.modelo.imaxe.Imaxe;
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
@@ -106,7 +108,7 @@ public class MuseoControllerImpl implements MuseoController {
 			for (PuntoInterese poi : lista) {
 				listaPIC.add(new PuntoIntereseCustom(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
 						new PosicionCustom(poi.getIdEdificio(), poi.getIdPlanta(), poi.getNivel(), poi.getLatitude(),
-								poi.getLonxitude()), StringUtil.convertirCSVListaInteger(poi.getListaIdImaxe())));
+								poi.getLonxitude()), StringUtil.convertirCSVListaShort(poi.getListaIdImaxe())));
 			}
 		}
 
@@ -338,6 +340,31 @@ public class MuseoControllerImpl implements MuseoController {
 		log.info(StringUtil.creaString("Punto interese ", idPoi, " eliminado correctamente: ", correcto));
 		
 		return correcto;
+	}
+
+	@Override
+	@RequestMapping(value = "/imaxe/recuperar/{listaIdImaxeCSV}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<ImaxeCustom> getListaImaxe(@PathVariable String listaIdImaxeCSV) {
+		
+		List<Short> listaIdImaxe = StringUtil.convertirCSVListaShort(listaIdImaxeCSV);
+		List<Imaxe> listaImaxe = this.museoManager.getListaImaxe(listaIdImaxe);
+		
+		
+		return convertirImaxeAImaxeCustom(listaImaxe);
+	}
+	
+	private static List<ImaxeCustom> convertirImaxeAImaxeCustom(List<Imaxe> lista) {
+
+		List<ImaxeCustom> listaPPIC = new ArrayList<>();
+
+		if (lista != null) {
+			for (Imaxe imaxe : lista) {
+				listaPPIC.add(new ImaxeCustom(imaxe.getIdImaxe(), imaxe.getNome(), imaxe.getDescricion(), imaxe.getIdPuntoInterese()));
+			}
+		}
+
+		return listaPPIC;
 	}
 	
 }

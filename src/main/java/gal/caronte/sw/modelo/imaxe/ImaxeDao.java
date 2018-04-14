@@ -14,4 +14,6 @@ public interface ImaxeDao {
 	
 	List<Imaxe> getListaImaxePorIdPuntoInterese(Short idPuntoInterese);
 	
+	List<Imaxe> getListaImaxePorListaIdImaxe(List<Short> listaIdImaxe);
+	
 }

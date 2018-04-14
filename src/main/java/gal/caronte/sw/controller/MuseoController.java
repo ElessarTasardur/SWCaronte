@@ -4,11 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import gal.caronte.sw.custom.ComprobarLoginGoogleCustom;
 import gal.caronte.sw.custom.GardarPercorridoParam;
+import gal.caronte.sw.custom.ImaxeCustom;
 import gal.caronte.sw.custom.PercorridoCustom;
 import gal.caronte.sw.custom.PercorridoPuntoIntereseCustom;
 import gal.caronte.sw.custom.PuntoIntereseCustom;
@@ -21,26 +19,28 @@ public interface MuseoController {
 	
 	List<Edificio> getEdificios();
 	
-	List<PuntoIntereseCustom> getPois(@PathVariable short idEdificioExterno);
+	List<PuntoIntereseCustom> getPois(short idEdificioExterno);
 	
 	List<ContaSitum> getContasSitum();
 	
-	List<ContaSitum> getContasSitum(@PathVariable short idUsuario);
+	List<ContaSitum> getContasSitum(short idUsuario);
 	
-	List<PercorridoCustom> getPercorridoEdificio(@PathVariable short idEdificio);
+	List<PercorridoCustom> getPercorridoEdificio(short idEdificio);
 	
-	List<PercorridoCustom> getPercorridoEdificioExterno(@PathVariable short idEdificioExterno);
+	List<PercorridoCustom> getPercorridoEdificioExterno(short idEdificioExterno);
 	
-	List<PercorridoPuntoIntereseCustom> getPuntosInteresePercorrido(@PathVariable short idPercorrido);
+	List<PercorridoPuntoIntereseCustom> getPuntosInteresePercorrido(short idPercorrido);
 	
-	Short gardarPercorrido(@RequestBody GardarPercorridoParam gardarPercorridoCustom);
+	Short gardarPercorrido(GardarPercorridoParam gardarPercorridoCustom);
 	
-	Boolean eliminarPercorrido(@RequestBody Short idPercorrido);
+	Boolean eliminarPercorrido(Short idPercorrido);
 	
-	ComprobarLoginGoogleCustom comprobarUsuarioGoogle(@RequestBody String tokenId);
+	ComprobarLoginGoogleCustom comprobarUsuarioGoogle(String tokenId);
 	
-	Short gardarPuntoInterese(@RequestBody PuntoIntereseCustom poiCustom);
+	Short gardarPuntoInterese(PuntoIntereseCustom poiCustom);
 	
-	Boolean eliminarPuntoInterese(@RequestBody Short idPoi);
+	Boolean eliminarPuntoInterese(Short idPoi);
+	
+	List<ImaxeCustom> getListaImaxe(String listaIdImaxeCSV);
 	
 }

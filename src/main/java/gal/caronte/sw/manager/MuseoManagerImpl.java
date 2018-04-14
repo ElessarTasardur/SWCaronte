@@ -13,6 +13,8 @@ import gal.caronte.sw.modelo.contasitum.ContaSitum;
 import gal.caronte.sw.modelo.contasitum.ContaSitumDao;
 import gal.caronte.sw.modelo.edificio.Edificio;
 import gal.caronte.sw.modelo.edificio.EdificioDao;
+import gal.caronte.sw.modelo.imaxe.Imaxe;
+import gal.caronte.sw.modelo.imaxe.ImaxeDao;
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 import gal.caronte.sw.modelo.percorrido.PercorridoDao;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
@@ -35,6 +37,9 @@ public class MuseoManagerImpl implements MuseoManager {
 	
 	@Autowired
 	private EdificioDao edificioDao;
+	
+	@Autowired
+	private ImaxeDao imaxeDao;
 	
 	@Autowired
 	private PercorridoDao percorridoDao;
@@ -207,5 +212,13 @@ public class MuseoManagerImpl implements MuseoManager {
 			log.info(StringUtil.creaString("Non se pode eliminar o punto de interese ", idPoi, " porque esta incluido nalgun percorrido "));
 		}
 		return retorno;
+	}
+
+	@Override
+	public List<Imaxe> getListaImaxe(List<Short> listaIdImaxe) {
+		List<Imaxe> listaImaxe = this.imaxeDao.getListaImaxePorListaIdImaxe(listaIdImaxe);
+		log.info(StringUtil.creaString("Recuperadas as imaxes: ", listaImaxe));
+		
+		return listaImaxe;
 	}
 }

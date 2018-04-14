@@ -4,6 +4,7 @@ import java.util.List;
 
 import gal.caronte.sw.modelo.contasitum.ContaSitum;
 import gal.caronte.sw.modelo.edificio.Edificio;
+import gal.caronte.sw.modelo.imaxe.Imaxe;
 import gal.caronte.sw.modelo.percorrido.Percorrido;
 import gal.caronte.sw.modelo.percorridopuntointerese.PercorridoPuntoInterese;
 import gal.caronte.sw.modelo.puntointerese.PuntoInterese;
@@ -39,5 +40,7 @@ public interface MuseoManager {
 	Short gardarPuntoInterese(PuntoInterese puntoInterese);
 	
 	boolean eliminarPuntoInterese(Short idPoi);
+	
+	List<Imaxe> getListaImaxe(List<Short> listaIdImaxe);
 
 }

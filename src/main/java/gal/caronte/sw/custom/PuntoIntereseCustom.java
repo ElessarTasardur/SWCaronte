@@ -8,13 +8,13 @@ public class PuntoIntereseCustom {
 	private String nome;
 	private String descricion;
 	private PosicionCustom posicion;
-	private List<Integer> listaIdImaxe;
+	private List<Short> listaIdImaxe;
 	
 	public PuntoIntereseCustom() {
 		super();
 	}
 
-	public PuntoIntereseCustom(Short idPuntoInterese, String nome, String descricion, PosicionCustom posicion, List<Integer> listaIdImaxe) {
+	public PuntoIntereseCustom(Short idPuntoInterese, String nome, String descricion, PosicionCustom posicion, List<Short> listaIdImaxe) {
 		super();
 		this.idPuntoInterese = idPuntoInterese;
 		this.nome = nome;
@@ -82,14 +82,14 @@ public class PuntoIntereseCustom {
 	/**
 	 * @return the listaIdImaxe
 	 */
-	public List<Integer> getListaIdImaxe() {
+	public List<Short> getListaIdImaxe() {
 		return this.listaIdImaxe;
 	}
 
 	/**
 	 * @param listaIdImaxe the listaImaxe to set
 	 */
-	public void setListaIdImaxe(List<Integer> listaIdImaxe) {
+	public void setListaIdImaxe(List<Short> listaIdImaxe) {
 		this.listaIdImaxe = listaIdImaxe;
 	}
 

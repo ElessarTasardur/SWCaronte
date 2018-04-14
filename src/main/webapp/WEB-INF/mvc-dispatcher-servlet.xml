@@ -10,4 +10,12 @@
 
 	<context:component-scan base-package="gal.caronte.sw.controller" />
 	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+	
+<!-- public CommonsMultipartResolver multipartResolver(){ -->
+<!--     CommonsMultipartResolver resolver = new CommonsMultipartResolver(); -->
+<!--     resolver.setMaxUploadSize(5242880); // set the size limit -->
+<!--     return resolver; -->
+
+	
 </beans>

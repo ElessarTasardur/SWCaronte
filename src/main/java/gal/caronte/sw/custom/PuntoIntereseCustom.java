@@ -1,22 +1,26 @@
 package gal.caronte.sw.custom;
 
+import java.util.List;
+
 public class PuntoIntereseCustom {
 
 	private Short idPuntoInterese;
 	private String nome;
 	private String descricion;
 	private PosicionCustom posicion;
+	private List<Integer> listaIdImaxe;
 	
 	public PuntoIntereseCustom() {
 		super();
 	}
 
-	public PuntoIntereseCustom(Short idPuntoInterese, String nome, String descricion, PosicionCustom posicion) {
+	public PuntoIntereseCustom(Short idPuntoInterese, String nome, String descricion, PosicionCustom posicion, List<Integer> listaIdImaxe) {
 		super();
 		this.idPuntoInterese = idPuntoInterese;
 		this.nome = nome;
 		this.descricion = descricion;
 		this.posicion = posicion;
+		this.listaIdImaxe = listaIdImaxe;
 	}
 
 	/**
@@ -76,6 +80,20 @@ public class PuntoIntereseCustom {
 	}
 
 	/**
+	 * @return the listaIdImaxe
+	 */
+	public List<Integer> getListaIdImaxe() {
+		return this.listaIdImaxe;
+	}
+
+	/**
+	 * @param listaIdImaxe the listaImaxe to set
+	 */
+	public void setListaIdImaxe(List<Integer> listaIdImaxe) {
+		this.listaIdImaxe = listaIdImaxe;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -92,6 +110,5 @@ public class PuntoIntereseCustom {
 		builder.append("]");
 		return builder.toString();
 	}
-	
 	
 }

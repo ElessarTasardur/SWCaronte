@@ -53,7 +53,7 @@ import gal.caronte.sw.util.StringUtil;
 @EnableWebMvc
 public class MuseoControllerImpl implements MuseoController {
 
-	public static final Logger log = LoggerFactory.getLogger(MuseoController.class);
+	public static final Logger log = LoggerFactory.getLogger(MuseoControllerImpl.class);
 
 	@Autowired
 	private MuseoManager museoManager;
@@ -106,7 +106,7 @@ public class MuseoControllerImpl implements MuseoController {
 			for (PuntoInterese poi : lista) {
 				listaPIC.add(new PuntoIntereseCustom(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
 						new PosicionCustom(poi.getIdEdificio(), poi.getIdPlanta(), poi.getNivel(), poi.getLatitude(),
-								poi.getLonxitude())));
+								poi.getLonxitude()), StringUtil.convertirCSVListaInteger(poi.getListaIdImaxe())));
 			}
 		}
 
@@ -132,7 +132,7 @@ public class MuseoControllerImpl implements MuseoController {
 			PosicionCustom posicion = poiCustom.getPosicion();
 			poi = new PuntoInterese(poiCustom.getIdPuntoInterese(), poiCustom.getNome(), poiCustom.getDescricion(),
 					posicion.getIdEdificio(), posicion.getIdPlanta(), posicion.getNivel(), posicion.getLatitude(),
-					posicion.getLonxitude());
+					posicion.getLonxitude(), null);
 		}
 		return poi;
 	}

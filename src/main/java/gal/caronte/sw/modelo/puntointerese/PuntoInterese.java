@@ -13,6 +13,7 @@ public class PuntoInterese {
 	public static final String NIVEL = "NIVEL";
 	public static final String LATITUDE = "LATITUDE";
 	public static final String LONXITUDE = "LONXITUDE";
+	public static final String LISTA_IMAXE = "LISTA_IMAXE";
 	
 	private Short idPuntoInterese;
 	private String nome;
@@ -22,9 +23,10 @@ public class PuntoInterese {
 	private Short nivel;
 	private Double latitude;
 	private Double lonxitude;
+	private String listaIdImaxe;
 
 	public PuntoInterese(Short idPuntoInterese, String nome, String descricion, Short idEdificio, Short idPlanta, Short nivel,
-			Double latitude, Double lonxitude) {
+			Double latitude, Double lonxitude, String listaIdImaxe) {
 		super();
 		this.idPuntoInterese = idPuntoInterese;
 		this.nome = nome;
@@ -34,6 +36,7 @@ public class PuntoInterese {
 		this.nivel = nivel;
 		this.latitude = latitude;
 		this.lonxitude = lonxitude;
+		this.listaIdImaxe = listaIdImaxe;
 	}
 
 	/**
@@ -146,6 +149,20 @@ public class PuntoInterese {
 	 */
 	public void setLonxitude(Double lonxitude) {
 		this.lonxitude = lonxitude;
+	}
+
+	/**
+	 * @return the listaIdImaxe
+	 */
+	public String getListaIdImaxe() {
+		return this.listaIdImaxe;
+	}
+
+	/**
+	 * @param listaIdImaxe the listaIdImaxe to set
+	 */
+	public void setListaIdImaxe(String listaIdImaxe) {
+		this.listaIdImaxe = listaIdImaxe;
 	}
 
 	/**

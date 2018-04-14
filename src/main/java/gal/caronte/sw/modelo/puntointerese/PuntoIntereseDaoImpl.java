@@ -56,7 +56,8 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 			Short nivel = rs.getShort(PuntoInterese.NIVEL);
 			Double latitude = rs.getDouble(PuntoInterese.LATITUDE);
 			Double lonxitude = rs.getDouble(PuntoInterese.LONXITUDE);
-			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, nivel, latitude, lonxitude);
+			String listaImaxe = rs.getString(PuntoInterese.LISTA_IMAXE);
+			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, nivel, latitude, lonxitude, listaImaxe);
 		}
 
 	};

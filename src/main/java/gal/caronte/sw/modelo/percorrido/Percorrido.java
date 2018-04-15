@@ -9,18 +9,24 @@ public class Percorrido {
 	public static final String NOME = "NOME";
 	public static final String DESCRICION = "DESCRICION";
 	public static final String ID_EDIFICIO = "ID_EDIFICIO";
+	public static final String TEMPO_TOTAL = "TEMPO_TOTAL";
+	public static final String TEMPO_CAMINHO = "TEMPO_CAMINHO";
 	
 	private Short idPercorrido;
 	private String nome;
 	private String descricion;
 	private Short idEdificio;
+	private Short tempoTotal;
+	private Short tempoCaminho;
 	
-	public Percorrido(Short idPercorrido, String nome, String descricion, Short idEdificio) {
+	public Percorrido(Short idPercorrido, String nome, String descricion, Short idEdificio, Short tempoTotal, Short tempoCaminho) {
 		super();
 		this.idPercorrido = idPercorrido;
 		this.nome = nome;
 		this.descricion = descricion;
 		this.idEdificio = idEdificio;
+		this.tempoTotal = tempoTotal;
+		this.tempoCaminho = tempoCaminho;
 	}
 
 	/**
@@ -80,6 +86,34 @@ public class Percorrido {
 	}
 
 	/**
+	 * @return the tempoTotal
+	 */
+	public Short getTempoTotal() {
+		return this.tempoTotal;
+	}
+
+	/**
+	 * @param tempoTotal the tempoTotal to set
+	 */
+	public void setTempoTotal(Short tempoTotal) {
+		this.tempoTotal = tempoTotal;
+	}
+
+	/**
+	 * @return the tempoCaminho
+	 */
+	public Short getTempoCaminho() {
+		return this.tempoCaminho;
+	}
+
+	/**
+	 * @param tempoCaminho the tempoCaminho to set
+	 */
+	public void setTempoCaminho(Short tempoCaminho) {
+		this.tempoCaminho = tempoCaminho;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -106,7 +140,5 @@ public class Percorrido {
 				&& Objects.equals(this.descricion, other.descricion)
 				&& Objects.equals(this.idEdificio, other.idEdificio);
 	}
-	
-	
 	
 }

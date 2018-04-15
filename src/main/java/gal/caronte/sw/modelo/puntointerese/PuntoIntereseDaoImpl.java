@@ -56,8 +56,9 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 			Short nivel = rs.getShort(PuntoInterese.NIVEL);
 			Double latitude = rs.getDouble(PuntoInterese.LATITUDE);
 			Double lonxitude = rs.getDouble(PuntoInterese.LONXITUDE);
+			Short tempo = rs.getShort(PuntoInterese.TEMPO);
 			String listaImaxe = rs.getString(PuntoInterese.LISTA_IMAXE);
-			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, nivel, latitude, lonxitude, listaImaxe);
+			return new PuntoInterese(idPuntoInterese, nome, descricion, idEdificio, idPlanta, nivel, latitude, lonxitude, tempo, listaImaxe);
 		}
 
 	};
@@ -95,7 +96,8 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 				.addValue(PuntoInterese.ID_PLANTA, puntoInterese.getIdPlanta())
 				.addValue(PuntoInterese.NIVEL, puntoInterese.getNivel())
 				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
-				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
+				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude())
+				.addValue(PuntoInterese.TEMPO, puntoInterese.getTempo());
 		KeyHolder holder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
 		Integer idPoi;
@@ -118,7 +120,8 @@ public class PuntoIntereseDaoImpl implements PuntoIntereseDao {
 				.addValue(PuntoInterese.ID_PLANTA, puntoInterese.getIdPlanta())
 				.addValue(PuntoInterese.NIVEL, puntoInterese.getNivel())
 				.addValue(PuntoInterese.LATITUDE, puntoInterese.getLatitude())
-				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude());
+				.addValue(PuntoInterese.LONXITUDE, puntoInterese.getLonxitude())
+				.addValue(PuntoInterese.TEMPO, puntoInterese.getTempo());
 		this.jdbcTemplate.update(this.updateQuery, parameters);
 	}
 

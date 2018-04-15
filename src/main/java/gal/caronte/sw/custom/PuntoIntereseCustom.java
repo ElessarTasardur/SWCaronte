@@ -8,18 +8,20 @@ public class PuntoIntereseCustom {
 	private String nome;
 	private String descricion;
 	private PosicionCustom posicion;
+	private Short tempo;
 	private List<Short> listaIdImaxe;
 	
 	public PuntoIntereseCustom() {
 		super();
 	}
 
-	public PuntoIntereseCustom(Short idPuntoInterese, String nome, String descricion, PosicionCustom posicion, List<Short> listaIdImaxe) {
+	public PuntoIntereseCustom(Short idPuntoInterese, String nome, String descricion, PosicionCustom posicion, Short tempo, List<Short> listaIdImaxe) {
 		super();
 		this.idPuntoInterese = idPuntoInterese;
 		this.nome = nome;
 		this.descricion = descricion;
 		this.posicion = posicion;
+		this.tempo = tempo;
 		this.listaIdImaxe = listaIdImaxe;
 	}
 
@@ -77,6 +79,20 @@ public class PuntoIntereseCustom {
 	 */
 	public void setPosicion(PosicionCustom posicion) {
 		this.posicion = posicion;
+	}
+
+	/**
+	 * @return the tempo
+	 */
+	public Short getTempo() {
+		return this.tempo;
+	}
+
+	/**
+	 * @param tempo the tempo to set
+	 */
+	public void setTempo(Short tempo) {
+		this.tempo = tempo;
 	}
 
 	/**

@@ -6,17 +6,21 @@ public class PercorridoCustom {
 	private String nome;
 	private String descricion;
 	private Short idEdificio;
+	private Short tempoTotal;
+	private Short tempoCaminho;
 
 	public PercorridoCustom() {
 		super();
 	}
 
-	public PercorridoCustom(Short idPercorrido, String nome, String descricion, Short idEdificio) {
+	public PercorridoCustom(Short idPercorrido, String nome, String descricion, Short idEdificio, Short tempoTotal, Short tempoCaminho) {
 		super();
 		this.idPercorrido = idPercorrido;
 		this.nome = nome;
 		this.descricion = descricion;
 		this.idEdificio = idEdificio;
+		this.tempoTotal = tempoTotal;
+		this.tempoCaminho = tempoCaminho;
 	}
 
 	/**
@@ -76,6 +80,34 @@ public class PercorridoCustom {
 	}
 
 	/**
+	 * @return the tempoTotal
+	 */
+	public Short getTempoTotal() {
+		return this.tempoTotal;
+	}
+
+	/**
+	 * @param tempoTotal the tempoTotal to set
+	 */
+	public void setTempoTotal(Short tempoTotal) {
+		this.tempoTotal = tempoTotal;
+	}
+
+	/**
+	 * @return the tempoCaminho
+	 */
+	public Short getTempoCaminho() {
+		return this.tempoCaminho;
+	}
+
+	/**
+	 * @param tempoCaminho the tempoCaminho to set
+	 */
+	public void setTempoCaminho(Short tempoCaminho) {
+		this.tempoCaminho = tempoCaminho;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -89,6 +121,10 @@ public class PercorridoCustom {
 		builder.append(this.descricion);
 		builder.append(", idEdificio=");
 		builder.append(this.idEdificio);
+		builder.append(", tempoTotal=");
+		builder.append(this.tempoTotal);
+		builder.append(", tempoCaminho=");
+		builder.append(this.tempoCaminho);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -48,7 +48,9 @@ public class PercorridoDaoImpl implements PercorridoDao {
 			String nome = rs.getString(Percorrido.NOME);
 			String descricion = rs.getString(Percorrido.DESCRICION);
 			Short idEdificio = rs.getShort(Percorrido.ID_EDIFICIO);
-			return new Percorrido(idPercorrido, nome, descricion, idEdificio);
+			Short tempoTotal = rs.getShort(Percorrido.TEMPO_TOTAL);
+			Short tempoCaminho = rs.getShort(Percorrido.TEMPO_CAMINHO);
+			return new Percorrido(idPercorrido, nome, descricion, idEdificio, tempoTotal, tempoCaminho);
 		}
 
 	};
@@ -76,7 +78,9 @@ public class PercorridoDaoImpl implements PercorridoDao {
 		SqlParameterSource parameters = new MapSqlParameterSource()
 				.addValue(Percorrido.NOME, percorrido.getNome())
 				.addValue(Percorrido.DESCRICION, percorrido.getDescricion())
-				.addValue(Percorrido.ID_EDIFICIO, percorrido.getIdEdificio());
+				.addValue(Percorrido.ID_EDIFICIO, percorrido.getIdEdificio())
+				.addValue(Percorrido.TEMPO_TOTAL, percorrido.getTempoTotal())
+				.addValue(Percorrido.TEMPO_CAMINHO, percorrido.getTempoCaminho());
 		KeyHolder holder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
 		Integer idPercorrido;
@@ -93,7 +97,9 @@ public class PercorridoDaoImpl implements PercorridoDao {
 	public void modificar(Percorrido percorrido) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Percorrido.ID_PERCORRIDO, percorrido.getIdPercorrido())
 				.addValue(Percorrido.NOME, percorrido.getNome())
-				.addValue(Percorrido.DESCRICION, percorrido.getDescricion());
+				.addValue(Percorrido.DESCRICION, percorrido.getDescricion())
+				.addValue(Percorrido.TEMPO_TOTAL, percorrido.getTempoTotal())
+				.addValue(Percorrido.TEMPO_CAMINHO, percorrido.getTempoCaminho());
 		this.jdbcTemplate.update(this.updateQuery, parameters);
 	}
 

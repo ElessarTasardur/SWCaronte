@@ -108,7 +108,7 @@ public class MuseoControllerImpl implements MuseoController {
 			for (PuntoInterese poi : lista) {
 				listaPIC.add(new PuntoIntereseCustom(poi.getIdPuntoInterese(), poi.getNome(), poi.getDescricion(),
 						new PosicionCustom(poi.getIdEdificio(), poi.getIdPlanta(), poi.getNivel(), poi.getLatitude(),
-								poi.getLonxitude()), StringUtil.convertirCSVListaShort(poi.getListaIdImaxe())));
+								poi.getLonxitude()), poi.getTempo(), StringUtil.convertirCSVListaShort(poi.getListaIdImaxe())));
 			}
 		}
 
@@ -134,7 +134,7 @@ public class MuseoControllerImpl implements MuseoController {
 			PosicionCustom posicion = poiCustom.getPosicion();
 			poi = new PuntoInterese(poiCustom.getIdPuntoInterese(), poiCustom.getNome(), poiCustom.getDescricion(),
 					posicion.getIdEdificio(), posicion.getIdPlanta(), posicion.getNivel(), posicion.getLatitude(),
-					posicion.getLonxitude(), null);
+					posicion.getLonxitude(), poiCustom.getTempo(), null);
 		}
 		return poi;
 	}
@@ -190,7 +190,7 @@ public class MuseoControllerImpl implements MuseoController {
 		if (lista != null) {
 			for (Percorrido percorrido : lista) {
 				listaPC.add(new PercorridoCustom(percorrido.getIdPercorrido(), percorrido.getNome(),
-						percorrido.getDescricion(), percorrido.getIdEdificio()));
+						percorrido.getDescricion(), percorrido.getIdEdificio(), percorrido.getTempoTotal(), percorrido.getTempoCaminho()));
 			}
 		}
 
@@ -230,7 +230,7 @@ public class MuseoControllerImpl implements MuseoController {
 		log.info(StringUtil.creaString("Gardar percorrido: ", gardarPercorridoCustom));
 		PercorridoCustom percorridoCustom = gardarPercorridoCustom.getPercorrido();
 		Percorrido percorrido = new Percorrido(percorridoCustom.getIdPercorrido(), percorridoCustom.getNome(),
-				percorridoCustom.getDescricion(), percorridoCustom.getIdEdificio());
+				percorridoCustom.getDescricion(), percorridoCustom.getIdEdificio(), percorridoCustom.getTempoTotal(), percorridoCustom.getTempoCaminho());
 
 		List<PuntoInterese> listaPoi = convertirPuntoIntereseCustomPuntoInterese(gardarPercorridoCustom.getListaPoi());
 

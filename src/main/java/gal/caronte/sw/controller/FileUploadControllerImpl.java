@@ -1,5 +1,10 @@
 package gal.caronte.sw.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +39,22 @@ public class FileUploadControllerImpl implements FileUploadController {
 
     	ResponseEntity<Resource> retorno = null;
     	
-    	String rutaImaxe = StringUtil.creaString(idEdificio, StringUtil.BARRA_SEPARADORA, idPoi, StringUtil.BARRA_SEPARADORA, idImaxe);
-        Resource file = this.imaxeManager.loadAsResource(rutaImaxe);
+    	String rutaImaxe = StringUtil.creaString(idEdificio, StringUtil.BARRA_SEPARADORA, idPoi, StringUtil.BARRA_SEPARADORA);
+        Resource file = this.imaxeManager.loadAsResource(rutaImaxe, idImaxe);
         if (file == null) {
         	log.error(StringUtil.creaString("Non se atopou a imaxe ", idImaxe, " para o POI ", idPoi, " do edificio ", idEdificio));
         }
         else {
-        	retorno = ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, StringUtil.creaString("attachment; filename=\"", file.getFilename(), "\"")).header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(file);
+        	//MIME
+        	String mime = "";
+        	try {
+        		Path source = Paths.get(rutaImaxe.concat(file.getFilename()));
+        		mime = Files.probeContentType(source);
+			}
+        	catch (IOException e) {
+				log.error("Erro ao recuperar o MIME", e);
+			}
+        	retorno = ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, StringUtil.creaString("attachment; filename=\"", file.getFilename(), "\"")).header(HttpHeaders.CONTENT_TYPE, mime).body(file);
         }
         return retorno;
     }

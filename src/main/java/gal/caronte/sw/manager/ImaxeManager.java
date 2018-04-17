@@ -9,7 +9,7 @@ public interface ImaxeManager {
 
 	Integer store(MultipartFile file, short idEdificio, short idPoi, String nome, String descricion);
 
-    Resource loadAsResource(String filename);
+    Resource loadAsResource(String filename, int idImaxe);
 
 	void eliminarImaxe(short idImaxe);
 

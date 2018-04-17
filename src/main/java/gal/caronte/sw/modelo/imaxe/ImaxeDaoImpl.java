@@ -10,7 +10,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import gal.caronte.sw.modelo.percorrido.Percorrido;
 
 @Repository
 public class ImaxeDaoImpl implements ImaxeDao {
@@ -57,7 +61,16 @@ public class ImaxeDaoImpl implements ImaxeDao {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Imaxe.ID_PUNTO_INTERESE, imaxe.getIdPuntoInterese())
 				.addValue(Imaxe.NOME, imaxe.getNome())
 				.addValue(Imaxe.DESCRICION, imaxe.getDescricion());
-		return this.jdbcTemplate.update(this.insertQuery, parameters);
+		KeyHolder holder = new GeneratedKeyHolder();
+		this.jdbcTemplate.update(this.insertQuery, parameters, holder);
+		Integer idImaxe;
+		if (holder.getKeys().size() > 1) {
+			idImaxe = (Integer) holder.getKeys().get(Imaxe.ID_IMAXE);
+	    }
+		else {
+			idImaxe = holder.getKey().intValue();
+	    }
+		return idImaxe.shortValue();
 	}
 
 	/**

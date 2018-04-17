@@ -1,6 +1,7 @@
 package gal.caronte.sw.manager;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
@@ -37,7 +38,7 @@ public class ImaxeManagerImpl implements ImaxeManager {
 		//Crear imaxe en BD
 		Integer idImaxe = this.imaxeDao.engadir(new Imaxe(null, idPoi, nome, descricion));
 		
-		log.info(multipartFile.getOriginalFilename());
+		log.info(StringUtil.creaString("Nome orixinal: ", multipartFile.getOriginalFilename()));
 		String[] particion = multipartFile.getOriginalFilename().split("\\.");
 		String extension = particion[particion.length-1];
 		
@@ -64,6 +65,7 @@ public class ImaxeManagerImpl implements ImaxeManager {
 		catch (IllegalStateException | IOException e) {
 			log.error("Non se puido gardar a imaxe", e);
 			idImaxe = null;
+			//TODO lanzar excepcion
 		}
 	    
 		return idImaxe;
@@ -75,17 +77,24 @@ public class ImaxeManagerImpl implements ImaxeManager {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public Resource loadAsResource(String filename) {
+	public Resource loadAsResource(String filename, int idImaxe) {
 		
 		String ruta = StringUtil.creaString(ParametrosProperties.getRutaFicheiro(), filename);
+		log.info(StringUtil.creaString("Ruta construida para recuperar a imaxe: ", ruta));
+		
+		File directorio = new File(ruta);
+		File[] listaFicheiros = directorio.listFiles();
 		
 		Resource resource = null;
+		String inicio = String.valueOf(idImaxe).concat(".");
 		try {
-            resource = new UrlResource(Paths.get(ruta).toUri());
-            if (!resource.exists()
-            		&& !resource.isReadable()) {
-                resource = null;
-            }
+			for (File file : listaFicheiros) {
+				if (file.isFile()
+						&& file.getName().startsWith(inicio)) {
+					resource = new UrlResource(Paths.get(ruta.concat(file.getName())).toUri());
+					break;
+				}
+			}
         }
 		catch (MalformedURLException e) {
 			log.error("Non se puido atopar a imaxe", e);

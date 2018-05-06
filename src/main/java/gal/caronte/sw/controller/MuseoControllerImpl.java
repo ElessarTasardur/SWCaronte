@@ -1,14 +1,10 @@
 package gal.caronte.sw.controller;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,24 +55,6 @@ public class MuseoControllerImpl implements MuseoController {
 
 	@Autowired
 	private MuseoManager museoManager;
-
-	@Override
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public String test(HttpServletRequest request) {
-
-		String retorno = String.valueOf(request.getRemoteAddr());
-		log.info("Direccion IP request: " + retorno);
-
-		try {
-			log.info("Direccion IP localhost: " + String.valueOf(InetAddress.getLocalHost()));
-			retorno = retorno + " - " + String.valueOf(InetAddress.getLocalHost());
-		} catch (UnknownHostException e) {
-			log.error("Erro ao recuperar a direccion localhost", e);
-		}
-
-		return retorno;
-	}
 
 	@Override
 	@RequestMapping(value = "/edificios", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -248,12 +226,15 @@ public class MuseoControllerImpl implements MuseoController {
 
 		ComprobarLoginGoogleCustom resposta = new ComprobarLoginGoogleCustom();
 		try {
+			
+			log.info(StringUtil.creaString("Iniciase a comprobacion do usuario de Google co token: ", idTokenString));
+			
 			HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 			JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
 			GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
 					//Id do cliente da aplicacion para acceder a Google
-					.setAudience(Collections.singletonList("448237493715-f8qnmr9mblorb5bqqaoc836sftm7jl6k.apps.googleusercontent.com"))
+					.setAudience(Collections.singletonList("937334461735-5ld5hochfmdj5hour3tdh0cbigtobtjo.apps.googleusercontent.com"))
 					.build();
 
 			GoogleIdToken idToken = verifier.verify(idTokenString);
@@ -262,15 +243,10 @@ public class MuseoControllerImpl implements MuseoController {
 				boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
 				if (emailVerified) {
 					String userId = payload.getSubject();
-					log.info("User ID: " + userId);
+					log.info(StringUtil.creaString("User ID: ", userId));
 	
 					// Get profile information from payload
 					String email = payload.getEmail();
-	//				String name = (String) payload.get("name");
-	//				String pictureUrl = (String) payload.get("picture");
-	//				String locale = (String) payload.get("locale");
-	//				String familyName = (String) payload.get("family_name");
-	//				String givenName = (String) payload.get("given_name");
 	
 					//Recupera a conta de usuario a traves dun email. Se non existe a conta, creaa
 					Usuario usuario = this.museoManager.getUsuario(email);
@@ -284,15 +260,21 @@ public class MuseoControllerImpl implements MuseoController {
 						}
 					}
 				}
+				else {
+					log.info("O email non foi verificado");
+				}
 				
 			}
 			else {
-				log.error("Invalid ID token.");
+				log.error("Token invalido");
 			}
 
 		}
 		catch (GeneralSecurityException | IOException e) {
 			log.error("Incidencia ao comprobar o usuario", e);
+		}
+		catch (Exception e) {
+			log.error("Erro non esperado", e);
 		}
 		
 		return resposta;

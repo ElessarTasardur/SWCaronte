@@ -2,8 +2,6 @@ package gal.caronte.sw.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import gal.caronte.sw.custom.ComprobarLoginGoogleCustom;
 import gal.caronte.sw.custom.GardarPercorridoParam;
 import gal.caronte.sw.custom.ImaxeCustom;
@@ -15,8 +13,6 @@ import gal.caronte.sw.modelo.edificio.Edificio;
 
 public interface MuseoController {
 
-	String test(HttpServletRequest request);
-	
 	List<Edificio> getEdificios();
 	
 	List<PuntoIntereseCustom> getPois(short idEdificioExterno);

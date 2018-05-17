@@ -33,8 +33,8 @@ public class FileUploadControllerImpl implements FileUploadController {
 	private ImaxeManager imaxeManager;
 	
     @Override
-	@GetMapping("/recuperar/{idEdificio}/{idPoi}/{idImaxe}")
     @ResponseBody
+    @GetMapping("/recuperar/{idEdificio}/{idPoi}/{idImaxe}")
     public ResponseEntity<Resource> recuperarImaxe(@PathVariable short idEdificio, @PathVariable short idPoi, @PathVariable int idImaxe) {
 
     	ResponseEntity<Resource> retorno = null;
@@ -62,9 +62,7 @@ public class FileUploadControllerImpl implements FileUploadController {
     @Override
 	@PostMapping("/subir/{idEdificio}/{idPoi}/{nome}/{descricion}")
     public Integer subirImaxe(@RequestParam MultipartFile file, @PathVariable short idEdificio, @PathVariable short idPoi, @PathVariable String nome, @PathVariable String descricion) {
-
         return this.imaxeManager.store(file, idEdificio, idPoi, nome, descricion);
-
     }
     
     @Override
@@ -79,8 +77,4 @@ public class FileUploadControllerImpl implements FileUploadController {
 		this.imaxeManager.eliminarImaxe(idImaxe);
 	}
 
-//    @ExceptionHandler(StorageFileNotFoundException.class)
-//    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-//        return ResponseEntity.notFound().build();
-//    }
 }

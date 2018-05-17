@@ -40,7 +40,6 @@ public class StringUtil {
 			}
 		}
 		
-		
 		return listaRetorno;
 	}
 }

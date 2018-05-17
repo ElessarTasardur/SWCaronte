@@ -65,7 +65,6 @@ public class ImaxeManagerImpl implements ImaxeManager {
 		catch (IllegalStateException | IOException e) {
 			log.error("Non se puido gardar a imaxe", e);
 			idImaxe = null;
-			//TODO lanzar excepcion
 		}
 	    
 		return idImaxe;

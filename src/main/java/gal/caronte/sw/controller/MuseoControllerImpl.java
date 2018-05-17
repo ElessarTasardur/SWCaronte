@@ -300,8 +300,8 @@ public class MuseoControllerImpl implements MuseoController {
 
 	@Override
 	@ResponseBody
-	@DeleteMapping("/percorrido/eliminar")
-	public Boolean eliminarPercorrido(@RequestBody Short idPercorrido) {
+	@DeleteMapping("/percorrido/eliminar/{idPercorrido}")
+	public Boolean eliminarPercorrido(@PathVariable Short idPercorrido) {
 		
 		log.info(StringUtil.creaString("Eliminar percorrido: ", idPercorrido));
 		
@@ -314,8 +314,8 @@ public class MuseoControllerImpl implements MuseoController {
 
 	@Override
 	@ResponseBody
-	@DeleteMapping("/poi/eliminar")
-	public Boolean eliminarPuntoInterese(@RequestBody Short idPoi) {
+	@DeleteMapping("/poi/eliminar/{idPoi}")
+	public Boolean eliminarPuntoInterese(@PathVariable Short idPoi) {
 		
 		log.info(StringUtil.creaString("Eliminar poi: ", idPoi));
 		

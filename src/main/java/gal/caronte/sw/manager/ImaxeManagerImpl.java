@@ -39,6 +39,7 @@ public class ImaxeManagerImpl implements ImaxeManager {
 		Integer idImaxe = this.imaxeDao.engadir(new Imaxe(null, idPoi, nome, descricion));
 		
 		log.info(StringUtil.creaString("Nome orixinal: ", multipartFile.getOriginalFilename()));
+		log.info(StringUtil.creaString("Id da imaxe: ", idImaxe));
 		String[] particion = multipartFile.getOriginalFilename().split("\\.");
 		String extension = particion[particion.length-1];
 		

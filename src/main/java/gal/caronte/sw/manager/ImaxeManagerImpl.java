@@ -109,8 +109,8 @@ public class ImaxeManagerImpl implements ImaxeManager {
 	 */
 	@Override
 	@Transactional
-	public void eliminarImaxe(short idImaxe) {
-		this.imaxeDao.eliminar(idImaxe);
+	public boolean eliminarImaxe(short idImaxe) {
+		return this.imaxeDao.eliminar(idImaxe);
 	}
 
 	/**

@@ -12,6 +12,6 @@ public interface FileUploadController {
 	
 	void modificarDatosImaxe(short idImaxe, String nome, String descricion);
 	
-	void eliminarImaxe(short idImaxe);
+	boolean eliminarImaxe(short idImaxe);
 	
 }

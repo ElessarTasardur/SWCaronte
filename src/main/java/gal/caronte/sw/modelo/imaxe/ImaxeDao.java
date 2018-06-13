@@ -8,7 +8,7 @@ public interface ImaxeDao {
 
 	void modificar(Imaxe imaxe);
 
-	void eliminar(Short idImaxe);
+	boolean eliminar(Short idImaxe);
 	
 	void eliminarPorIdPuntoInterese(Short idPuntoInterese);
 	

@@ -62,12 +62,6 @@ public class FileUploadControllerImpl implements FileUploadController {
         return retorno;
     }
 
-//    @Override
-//    @RequestMapping(value = "/subir/{idEdificio}/{idPoi}/{nome}/{descricion}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public Integer subirImaxe(@RequestParam MultipartFile file, @PathVariable short idEdificio, @PathVariable short idPoi, @PathVariable String nome, @PathVariable String descricion) {
-//        return this.imaxeManager.store(file, idEdificio, idPoi, nome, descricion);
-//    }
-    
     @Override
     @ResponseBody
     @RequestMapping(value = "/subir", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -82,9 +76,18 @@ public class FileUploadControllerImpl implements FileUploadController {
 	}
 
 	@Override
-	@DeleteMapping("/eliminar/{idImaxe}")
-	public void eliminarImaxe(@PathVariable short idImaxe) {
-		this.imaxeManager.eliminarImaxe(idImaxe);
+    @ResponseBody
+	@RequestMapping(value = "/eliminar/{idImaxe}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean eliminarImaxe(@PathVariable short idImaxe) {
+		
+		log.info(StringUtil.creaString("Eliminar imaxe: ", idImaxe));
+		
+		boolean correcto = this.imaxeManager.eliminarImaxe(idImaxe);
+
+		log.info(StringUtil.creaString("Imaxe ", idImaxe, " eliminada correctamente: ", correcto));
+		
+		return correcto;
+		
 	}
 
 }

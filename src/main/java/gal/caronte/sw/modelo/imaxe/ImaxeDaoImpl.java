@@ -88,9 +88,9 @@ public class ImaxeDaoImpl implements ImaxeDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void eliminar(Short idImaxe) {
+	public boolean eliminar(Short idImaxe) {
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue(Imaxe.ID_IMAXE, idImaxe);
-		this.jdbcTemplate.update(this.deleteQuery, parameters);
+		return this.jdbcTemplate.update(this.deleteQuery, parameters) == 1;
 	}
 
 	/**

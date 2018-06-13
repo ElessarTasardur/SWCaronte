@@ -11,7 +11,7 @@ public interface ImaxeManager {
 
     Resource loadAsResource(String filename, int idImaxe);
 
-	void eliminarImaxe(short idImaxe);
+	boolean eliminarImaxe(short idImaxe);
 
 	void modificarDatosImaxe(Imaxe imaxe);
 

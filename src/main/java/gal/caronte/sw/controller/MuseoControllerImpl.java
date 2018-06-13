@@ -331,6 +331,8 @@ public class MuseoControllerImpl implements MuseoController {
 	@GetMapping("/imaxe/recuperar/{listaIdImaxeCSV}")
 	public List<ImaxeCustom> getListaImaxe(@PathVariable String listaIdImaxeCSV) {
 		
+		log.info(StringUtil.creaString("Parametro recibido, listaIdImaxeCSV: ", listaIdImaxeCSV));
+		
 		List<Short> listaIdImaxe = StringUtil.convertirCSVListaShort(listaIdImaxeCSV);
 		List<Imaxe> listaImaxe = this.museoManager.getListaImaxe(listaIdImaxe);
 		

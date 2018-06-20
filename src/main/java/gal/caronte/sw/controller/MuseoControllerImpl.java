@@ -9,7 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -48,8 +46,6 @@ import gal.caronte.sw.modelo.usuarioedificio.UsuarioEdificio;
 import gal.caronte.sw.util.StringUtil;
 
 @RestController
-@RequestMapping(value = "/")
-@Configuration
 @EnableWebMvc
 public class MuseoControllerImpl implements MuseoController {
 
@@ -59,7 +55,6 @@ public class MuseoControllerImpl implements MuseoController {
 	private MuseoManager museoManager;
 
 	@Override
-	@ResponseBody
     @GetMapping("/edificios")
 	public List<Edificio> getEdificios() {
 		List<Edificio> lista = this.museoManager.getTodosEdificios();
@@ -70,7 +65,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
     @GetMapping("/pois/{idEdificioExterno}")
 	public List<PuntoIntereseCustom> getPois(@PathVariable short idEdificioExterno) {
 		List<PuntoInterese> lista = this.museoManager.getPorIdEdificioExterno(idEdificioExterno);
@@ -120,7 +114,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@GetMapping("/contas")
 	public List<ContaSitum> getContasSitum() {
 		List<ContaSitum> lista = this.museoManager.getListaContaSitum(null);
@@ -131,7 +124,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 	
 	@Override
-	@ResponseBody
 	@GetMapping("/contas/{idUsuario}")
 	public List<ContaSitum> getContasSitum(@PathVariable short idUsuario) {
 		List<ContaSitum> lista = this.museoManager.getListaContaSitum(idUsuario);
@@ -142,7 +134,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@GetMapping("/percorridos/{idEdificio}")
 	public List<PercorridoCustom> getPercorridoEdificio(@PathVariable short idEdificio) {
 		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificio(idEdificio);
@@ -153,7 +144,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@GetMapping("/percorridosidexterno/{idEdificioExterno}")
 	public List<PercorridoCustom> getPercorridoEdificioExterno(@PathVariable short idEdificioExterno) {
 		List<Percorrido> lista = this.museoManager.getListaPercorridoPorIdEdificioExterno(idEdificioExterno);
@@ -178,7 +168,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@GetMapping("/ppi/{idPercorrido}")
 	public List<PercorridoPuntoIntereseCustom> getPuntosInteresePercorrido(@PathVariable short idPercorrido) {
 		List<PercorridoPuntoInterese> lista = this.museoManager.getListaPercorridoPuntoInterese(idPercorrido);
@@ -203,14 +192,14 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@RequestMapping(value = "/percorrido/gardar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Short gardarPercorrido(@RequestBody GardarPercorridoParam gardarPercorridoCustom) {
 
 		log.info(StringUtil.creaString("Gardar percorrido: ", gardarPercorridoCustom));
 		PercorridoCustom percorridoCustom = gardarPercorridoCustom.getPercorrido();
 		Percorrido percorrido = new Percorrido(percorridoCustom.getIdPercorrido(), percorridoCustom.getNome(),
-				percorridoCustom.getDescricion(), percorridoCustom.getIdEdificio(), percorridoCustom.getTempoTotal(), percorridoCustom.getTempoCaminho());
+				percorridoCustom.getDescricion(), percorridoCustom.getIdEdificio(), percorridoCustom.getTempoTotal(),
+				percorridoCustom.getTempoCaminho());
 
 		List<PuntoInterese> listaPoi = convertirPuntoIntereseCustomPuntoInterese(gardarPercorridoCustom.getListaPoi());
 
@@ -222,7 +211,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@RequestMapping(value = "/comprobarUsuarioGoogle", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ComprobarLoginGoogleCustom comprobarUsuarioGoogle(@RequestBody String idTokenString) {
 
@@ -283,7 +271,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 	
 	@Override
-	@ResponseBody
 	@RequestMapping(value = "/poi/gardar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Short gardarPuntoInterese(@RequestBody PuntoIntereseCustom poiCustom) {
 
@@ -299,7 +286,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@DeleteMapping("/percorrido/eliminar/{idPercorrido}")
 	public Boolean eliminarPercorrido(@PathVariable Short idPercorrido) {
 		
@@ -313,7 +299,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@DeleteMapping("/poi/eliminar/{idPoi}")
 	public Boolean eliminarPuntoInterese(@PathVariable Short idPoi) {
 		
@@ -327,7 +312,6 @@ public class MuseoControllerImpl implements MuseoController {
 	}
 
 	@Override
-	@ResponseBody
 	@GetMapping("/imaxe/recuperar/{listaIdImaxeCSV}")
 	public List<ImaxeCustom> getListaImaxe(@PathVariable String listaIdImaxeCSV) {
 		
@@ -335,7 +319,6 @@ public class MuseoControllerImpl implements MuseoController {
 		
 		List<Short> listaIdImaxe = StringUtil.convertirCSVListaShort(listaIdImaxeCSV);
 		List<Imaxe> listaImaxe = this.museoManager.getListaImaxe(listaIdImaxe);
-		
 		
 		return convertirImaxeAImaxeCustom(listaImaxe);
 	}

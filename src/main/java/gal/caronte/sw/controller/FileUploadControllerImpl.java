@@ -12,21 +12,22 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import gal.caronte.sw.manager.ImaxeManager;
 import gal.caronte.sw.modelo.imaxe.Imaxe;
 import gal.caronte.sw.util.StringUtil;
 
-@Controller
+@RestController
+@EnableWebMvc
 public class FileUploadControllerImpl implements FileUploadController {
 
 	public static final Logger log = LoggerFactory.getLogger(FileUploadControllerImpl.class);
@@ -35,7 +36,6 @@ public class FileUploadControllerImpl implements FileUploadController {
 	private ImaxeManager imaxeManager;
 	
     @Override
-    @ResponseBody
     @GetMapping("/recuperar/{idEdificio}/{idPoi}/{idImaxe}")
     public ResponseEntity<Resource> recuperarImaxe(@PathVariable short idEdificio, @PathVariable short idPoi, @PathVariable int idImaxe) {
 
@@ -62,7 +62,6 @@ public class FileUploadControllerImpl implements FileUploadController {
     }
 
     @Override
-    @ResponseBody
     @RequestMapping(value = "/subir", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Integer subirImaxe(@RequestParam MultipartFile file, @RequestParam short idEdificio, @RequestParam short idPoi, @RequestParam String nome, @RequestParam String descricion) {
         return this.imaxeManager.store(file, idEdificio, idPoi, nome, descricion);
@@ -75,7 +74,6 @@ public class FileUploadControllerImpl implements FileUploadController {
 	}
 
 	@Override
-    @ResponseBody
 	@RequestMapping(value = "/eliminar/{idImaxe}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean eliminarImaxe(@PathVariable short idImaxe) {
 		
